@@ -15,6 +15,10 @@ a {
   text-decoration: none;
 }
 
+main {
+  @apply p-4;
+}
+
 * {
   box-sizing: border-box;
 }

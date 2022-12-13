@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 export default function Page() {
   return (
-    <main className="flex gap-2 p-4">
+    <main className="flex gap-2">
       <Button onClick={() => toast.success('Success message !')}>
         show success toast
       </Button>

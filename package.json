@@ -12,10 +12,12 @@
     "start": "next start",
     "lint": "next lint",
     "commit": "git add . && cz",
-    "postcommit": "git push"
+    "postcommit": "git push",
+    "prisma:update": "npx prisma db push && npx prisma db seed"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
+    "@prisma/client": "^4.7.1",
     "@tanstack/react-query": "^4.19.1",
     "axios": "^1.0.0",
     "next": "13.0.6",
@@ -33,11 +35,15 @@
     "eslint-plugin-react": "^7.31.11",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
+    "prisma": "^4.7.1",
     "tailwindcss": "^3.2.4"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
