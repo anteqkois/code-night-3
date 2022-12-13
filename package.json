@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "commit": "git add . && cz"
+    "commit": "git add . && cz",
+    "postcommit": "git push"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
