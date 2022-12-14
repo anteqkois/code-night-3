@@ -13,12 +13,22 @@ export const authOptions = {
       credentials: {
         nick: { label: 'Nick', type: 'text', placeholder: 'anteqkois' },
         password: { label: 'Password', type: 'password' },
+        signUpData: {},
       },
       async authorize(credentials, req) {
+        //check if SignUp or login
+        if (credentials?.formData) {
+          const formData = JSON.parse(credentials.formData);
+
+          const user = await prisma.user.create({
+            data: { ...formData },
+          });
+          return user ?? null;
+        }
+
         const user = await prisma.user.findFirst({
           where: { nick: credentials.nick, password: credentials.password },
         });
-
         return user ?? null;
       },
     }),
