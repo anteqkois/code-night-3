@@ -6,15 +6,18 @@ async function main() {
   await prisma.user.createMany({
     data: [
       {
-        name: 'Wojtek',
+        nick: 'Wojteq',
+        password: 'haslo123',
         email: 'wojtekkowalczyk@prisma.io',
       },
       {
-        name: 'ŁukaszII',
+        nick: 'ŁukaszII',
+        password: 'haslo123',
         email: 'lukaspodolski@prisma.io',
       },
       {
-        name: 'Antek',
+        nick: 'anteqkois',
+        password: 'haslo123',
         email: 'anteqkois@prisma.io',
       },
     ],

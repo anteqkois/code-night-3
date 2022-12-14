@@ -2,23 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@layer base {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  main {
+    @apply p-4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-medium text-neutral-800 leading-relaxed;
+  }
+
+  p {
+    @apply font-normal text-neutral-800 text-sm lg:text-base;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  h6 {
+    @apply text-base;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-main {
-  @apply p-4;
-}
-
-* {
-  box-sizing: border-box;
+@layer components {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .position-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .animate-action {
+    @apply transition-all duration-300 hover:cursor-pointer hover:scale-105;
+    /* @apply group-hover:transition-all group-hover:duration-200 group-hover:cursor-pointer group-hover:scale-105; */
+  }
+  .state-focus {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75;
+  }
+  .icon {
+    @apply inline p-0.5 bg-neutral-200 stroke-neutral-600 w-6 rounded-full;
+  }
+  .icon-action {
+    @apply icon state-focus animate-action hover:stroke-neutral-800;
+  }
 }

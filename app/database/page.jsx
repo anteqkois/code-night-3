@@ -1,4 +1,4 @@
-import { Card } from '@/components/utils';
+import { Button, Card } from '@/components/utils';
 import { prisma } from '@/lib/prisma';
 
 export default async function Page() {
@@ -6,6 +6,7 @@ export default async function Page() {
 
   return (
     <main>
+      <Button>Add user</Button>
       <Card>{JSON.stringify(data)}</Card>
     </main>
   );
