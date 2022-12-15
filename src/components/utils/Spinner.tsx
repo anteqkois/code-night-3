@@ -1,8 +1,14 @@
-export const Spinner = ({ className }) => {
+import { SVGAttributes } from 'react';
+
+type Props = SVGAttributes<SVGElement>;
+
+export const Spinner = ({ className }: Props) => {
   return (
+    // <div className="w-full h-full flex-center">
     <svg
       role="status"
       className={`w-12 h-full mx-auto text-neutral-300 animate-spin fill-primary ${className}`}
+      // className={`w-12 h-full mx-auto my-6 text-neutral-300 animate-spin fill-primary ${className}`}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,6 +22,7 @@ export const Spinner = ({ className }) => {
         fill="currentFill"
       />
     </svg>
+    // </div>
   );
 };
 

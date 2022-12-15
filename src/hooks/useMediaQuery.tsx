@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
-// type PreOption = 'max-width' | 'min-width';
-// type BreakPoints = '640' | '768' | '1024' | '1280' | '1536';
+type PreOption = 'max-width' | 'min-width';
+type BreakPoints = '640' | '768' | '1024' | '1280' | '1536';
 
-// type QueriesOption = `(${PreOption}: ${BreakPoints}px)`;
+type QueriesOption = `(${PreOption}: ${BreakPoints}px)`;
 
-export const useMediaQuery = (queries, values, defaultValue) => {
-  const mediaQueryLists = useRef();
+export const useMediaQuery = <T,>(
+  queries: QueriesOption[],
+  values: T[],
+  defaultValue: T
+): T => {
+  const mediaQueryLists = useRef<MediaQueryList[]>();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -22,12 +26,12 @@ export const useMediaQuery = (queries, values, defaultValue) => {
       (mediaQuery) => mediaQuery.matches
     );
 
-    return typeof values[index] !== 'undefined'
-      ? values?.[index]
+    return typeof values[index as number] !== 'undefined'
+      ? values?.[index as number]
       : defaultValue;
   };
 
-  const [value, setValue] = useState < T > getValue;
+  const [value, setValue] = useState<T>(getValue);
 
   useEffect(() => {
     const handler = () => setValue(getValue);

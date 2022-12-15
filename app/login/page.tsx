@@ -27,7 +27,7 @@ export default function Page() {
         >
           Login
         </Button>
-        <Button onClick={signOut}>Logout</Button>
+        <Button onClick={() => signOut()}>Logout</Button>
       </div>
       <Card>
         <h4>Session data:</h4>

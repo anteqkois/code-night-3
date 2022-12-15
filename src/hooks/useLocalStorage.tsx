@@ -1,8 +1,22 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-export function useLocalStorage(
-  key,
-  initialValue
+export function useLocalStorage<S>(
+  key: string,
+  initialState: S | (() => S)
+  // initialState?: S | (() => S)
+): [S, Dispatch<SetStateAction<S>>, (keyToRemove?: string) => void];
+
+export function useLocalStorage<S = undefined>(
+  key: string
+): [
+  S | undefined,
+  Dispatch<SetStateAction<S | undefined>>,
+  (keyToRemove?: string) => void
+];
+
+export function useLocalStorage<S = undefined>(
+  key: string,
+  initialValue?: S | (() => S)
 ) {
   const [storedValue, setStoredValue] = useState<S>(() => {
     try {
@@ -15,7 +29,7 @@ export function useLocalStorage(
     }
   });
 
-  const setValue = (value) => {
+  const setValue = (value: S | ((val: S) => S)) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
@@ -28,10 +42,10 @@ export function useLocalStorage(
     }
   };
 
-  const removeItem = (keyToRemove) =>
+  const removeItem = (keyToRemove: string) =>
     localStorage.removeItem(keyToRemove ?? key);
 
-  return [storedValue, setValue, removeItem];
+  return [storedValue, setValue, removeItem] as const;
 }
 
 export default useLocalStorage;

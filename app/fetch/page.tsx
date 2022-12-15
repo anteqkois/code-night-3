@@ -11,5 +11,5 @@ export default function Page() {
     retry: false,
   });
 
-  return <main>{JSON.stringify(data.data)}</main>;
+  return <main>{JSON.stringify(data?.data)}</main>;
 }

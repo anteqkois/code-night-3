@@ -1,15 +1,20 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
-const fulfilledDefault = (message) => {
+const fulfilledDefault = (message: string) => {
   toast.success(message);
 };
 const rejectedDefault = () => {
   toast.success("Something went wrong, data wasn't copy.");
 };
 
+type copyArg = {
+  copyData: string;
+  message: string;
+};
+
 const useClipboard = (messageFromHook = 'Data copied') => {
-  const copy = ({ copyData, message }) => {
+  const copy = ({ copyData, message }: copyArg) => {
     navigator.clipboard.writeText(copyData).then(
       () => {
         fulfilledDefault(message || messageFromHook);
@@ -20,7 +25,7 @@ const useClipboard = (messageFromHook = 'Data copied') => {
     );
   };
 
-  const ClipboardIcon = ({ copyData, message }) => {
+  const ClipboardIcon = ({ copyData, message }: copyArg) => {
     return (
       <DocumentDuplicateIcon
         tabIndex={0}

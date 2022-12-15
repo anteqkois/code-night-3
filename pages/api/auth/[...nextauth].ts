@@ -1,8 +1,9 @@
 import { prisma } from '@/lib/prisma';
 import NextAuth from 'next-auth';
+// import { Awaitable } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions = {
+export default NextAuth({
   providers: [
     CredentialsProvider({
       name: 'default',
@@ -13,23 +14,24 @@ export const authOptions = {
       credentials: {
         nick: { label: 'Nick', type: 'text', placeholder: 'anteqkois' },
         password: { label: 'Password', type: 'password' },
-        signUpData: {},
+        formData: { label: 'formData', type: 'text' },
       },
       async authorize(credentials, req) {
         //check if SignUp or login
         if (credentials?.formData) {
           const formData = JSON.parse(credentials.formData);
 
+          //TODO handle unique errors from prisma
           const user = await prisma.user.create({
             data: { ...formData },
           });
-          return user ?? null;
+          return user ?? (null as any);
         }
 
         const user = await prisma.user.findFirst({
-          where: { nick: credentials.nick, password: credentials.password },
+          where: { nick: credentials?.nick, password: credentials?.password },
         });
-        return user ?? null;
+        return user ?? (null as any);
       },
     }),
   ],
@@ -53,10 +55,16 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({
+      session,
+      token,
+      user,
+    }: {
+      session: any;
+      token: any;
+      user: any;
+    }) {
       return { ...session, user: token.user };
     },
   },
-};
-
-export default NextAuth(authOptions);
+});
