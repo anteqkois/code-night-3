@@ -1,4 +1,5 @@
 'use client';
+import NavBar from '@/components/NavBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'react-hot-toast';
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <NavBar />
         <SessionProvider>
           <QueryClientProvider client={queryClient}>
             <Toaster

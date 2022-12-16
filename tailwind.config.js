@@ -16,23 +16,15 @@ module.exports = {
       },
       colors: {
         primary: {
-          ...colors.purple,
-          light: colors.purple[600],
-          DEFAULT: colors.purple[700],
-          dark: colors.purple[800],
+          orange: '#FCA311',
+          navy: '#14213D',
         },
         secondary: {
-          light: colors.teal[600],
-          DEFAULT: colors.teal[700],
-          dark: colors.teal[800],
-          ...colors.teal,
+          orange: '#eb970e',
+          navy: '#1b2c52',
+          gray: '#E5E5E5',
         },
-        neutral: {
-          light: colors.neutral[600],
-          DEFAULT: colors.neutral[800],
-          dark: colors.neutral[800],
-          150: '#EEEEEE',
-        },
+        neutral: {},
         success: {
           // 50: '#F0FDF4',
           100: '#DCFCE7',
