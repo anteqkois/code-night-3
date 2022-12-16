@@ -1,70 +1,75 @@
-import { prisma } from '@/lib/prisma';
 import NextAuth from 'next-auth';
-// import { Awaitable } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { getCsrfToken } from 'next-auth/react';
+import { SiweMessage } from 'siwe';
 
-export default NextAuth({
-  providers: [
+// For more information on each option (and a full list of options) go to
+// https://next-auth.js.org/configuration/options
+export default async function auth(req: any, res: any) {
+  const providers = [
     CredentialsProvider({
-      name: 'default',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
+      name: 'Ethereum',
       credentials: {
-        nick: { label: 'Nick', type: 'text', placeholder: 'anteqkois' },
-        password: { label: 'Password', type: 'password' },
-        formData: { label: 'formData', type: 'text' },
+        message: {
+          label: 'Message',
+          type: 'text',
+          placeholder: '0x0',
+        },
+        signature: {
+          label: 'Signature',
+          type: 'text',
+          placeholder: '0x0',
+        },
       },
-      async authorize(credentials, req) {
-        //check if SignUp or login
-        if (credentials?.formData) {
-          const formData = JSON.parse(credentials.formData);
+      async authorize(credentials) {
+        try {
+          const siwe = new SiweMessage(
+            JSON.parse(credentials?.message || '{}')
+          );
+          const nextAuthUrl = new URL(process.env.NEXTAUTH_URL);
 
-          //TODO handle unique errors from prisma
-          const user = await prisma.user.create({
-            data: { ...formData },
+          const result = await siwe.verify({
+            signature: credentials?.signature || '',
+            domain: nextAuthUrl.host,
+            nonce: await getCsrfToken({ req }),
           });
-          return user ?? (null as any);
-        }
 
-        const user = await prisma.user.findFirst({
-          where: { nick: credentials?.nick, password: credentials?.password },
-        });
-        return user ?? (null as any);
+          if (result.success) {
+            //TODO Get account info from PRISMA
+            return {
+              id: siwe.address,
+            };
+          }
+          return null;
+        } catch (e) {
+          return null;
+        }
       },
     }),
-  ],
-  session: {
-    strategy: 'jwt',
-    maxAge: 15 * 24 * 30 * 60, // 15 days
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: '/login',
-    error: '/login',
-    signOut: '/login',
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    // verifyRequest: '/auth/verify-request', // (used for check email message)
-    // newUser: '/auth/new-user', // New users will be directed here on first sign in (leave the property out if not of interest)
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        return { ...token, user };
-      }
-      return token;
+  ];
+
+  const isDefaultSigninPage =
+    req.method === 'GET' && req.query.nextauth.includes('signin');
+
+  // Hide Sign-In with Ethereum from default sign page
+  if (isDefaultSigninPage) {
+    providers.pop();
+  }
+
+  return await NextAuth(req, res, {
+    // https://next-auth.js.org/configuration/providers/oauth
+    providers,
+    session: {
+      strategy: 'jwt',
     },
-    async session({
-      session,
-      token,
-      user,
-    }: {
-      session: any;
-      token: any;
-      user: any;
-    }) {
-      return { ...session, user: token.user };
+    secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+      async session({ session, token }: { session: any; token: any }) {
+        session.address = token.sub;
+        session.user.name = token.sub;
+        session.user.image = 'https://www.fillmurray.com/128/128';
+        return session;
+      },
     },
-  },
-});
+  });
+}

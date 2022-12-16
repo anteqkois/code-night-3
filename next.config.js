@@ -4,8 +4,9 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['www.mercedes-benz.pl','assets.oneweb.mercedes-benz.com']
+    domains: ['www.mercedes-benz.pl', 'assets.oneweb.mercedes-benz.com'],
   },
-}
+  reactStrictMode: false,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
