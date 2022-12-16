@@ -8,7 +8,7 @@
       "@/types/*": ["src/types/*"]
     },
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["DOM", "DOM.Iterable", "esnext"],
     "alwaysStrict": false,
     "allowJs": true,
     "skipLibCheck": true,
@@ -35,7 +35,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/lib/motion.js"
+    "src/lib/motion.ts"
   ],
   "exclude": ["node_modules"]
 }
