@@ -4,9 +4,9 @@ export default function Home() {
   return (
     <div>
       <main>
-        <h1 className="text-3xl font-bold underline">Hello, Next.js!</h1>
+        <div className="min-h-screen bg-red-300"></div>
+        <div className="h-[90px] bg-teal-500"></div>
       </main>
-      <Button>siema</Button>
       <footer></footer>
     </div>
   );
