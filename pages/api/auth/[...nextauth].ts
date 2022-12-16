@@ -1,3 +1,4 @@
+import { prisma } from '@/lib/prisma';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getCsrfToken } from 'next-auth/react';
@@ -36,11 +37,31 @@ export default async function auth(req: any, res: any) {
 
           if (result.success) {
             //TODO Get account info from PRISMA
-            return {
-              id: siwe.address,
-            };
+            const user = await prisma.user.findFirst({
+              where: { address: siwe.address },
+            });
+            if (user) {
+              // return {
+              //   id: siwe.address,
+              //   user: user,
+              // };
+              return user ?? (null as any);
+            } else {
+              const user = prisma.user.create({
+                data: { address: siwe.address },
+              });
+              // return {
+              //   id: siwe.address,
+              //   user: user,
+              // };
+              return user ?? (null as any);
+            }
+
+            // return {
+            //   id: siwe.address,
+            // };
           }
-          return null;
+          return null as any;
         } catch (e) {
           return null;
         }
@@ -64,11 +85,20 @@ export default async function auth(req: any, res: any) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
+      async jwt({ token, user }) {
+        // console.log(token, user);
+        if (user) {
+          return { ...token, user };
+        }
+        return token;
+      },
       async session({ session, token }: { session: any; token: any }) {
-        session.address = token.sub;
-        session.user.name = token.sub;
-        session.user.image = 'https://www.fillmurray.com/128/128';
-        return session;
+        // console.log(token, session);
+        // session.address = token.sub;
+        // session.user.name = token.sub;
+        // session.user.image = 'https://www.fillmurray.com/128/128';
+        // return session;
+        return { ...session, user: token.user };
       },
     },
   });

@@ -8,7 +8,8 @@ import { erc20ABI, useContract, useContractWrite, useSignMessage } from 'wagmi';
 
 const handleInputPattern = (amount: string) => {
   // 7 digits exponent, 18 mantissa
-  let match = amount.match(/^(\d{0,7}[.]\d{0,18})$|^(\d{0,7})$/g);
+  let match = amount.match(/^(\d{0,8})$/g);
+  // let match = amount.match(/^(\d{0,7}[.]\d{0,18})$|^(\d{0,7})$/g);
   //@ts-ignore
   if (match) match = match[0] === '.' ? '0.' : match[0];
   return match;
@@ -27,12 +28,6 @@ export default function Page() {
     //  abi: ensRegistryABI,
   });
 
-  // const contractWrite = useContractWrite({
-  //   mode: 'recklesslyUnprepared',
-  //   addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
-  //   contractInterface: erc20ABI,
-  //   functionName: 'transferFrom',
-  // });
   const contractWrite = useContractWrite({
     mode: 'recklesslyUnprepared',
     addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
@@ -66,7 +61,7 @@ export default function Page() {
   };
 
   return (
-    <main className="mt-96">
+    <main>
       <Input
         onChange={handleAmount}
         value={amount}
