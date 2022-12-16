@@ -31,13 +31,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
-<<<<<<< HEAD
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
-=======
     "siwe": "^2.1.3",
     "wagmi": "^0.6.8",
->>>>>>> 4a1822f (feat(merge): merge)
     "zod": "^3.20.2"
   },
   "devDependencies": {
