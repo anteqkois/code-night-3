@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "commit": "git add . && cz",
-    "postcommit2": "git push",
+    "postcommit": "git push",
     "prisma:update": "npx prisma db push && npx prisma db seed"
   },
   "dependencies": {
