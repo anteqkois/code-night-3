@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['www.mercedes-benz.pl','assets.oneweb.mercedes-benz.com']
+  },
 }
 
 module.exports = nextConfig
