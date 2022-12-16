@@ -1,6 +1,37 @@
+'use client';
+
+import { Button } from '@/components/utils';
 import { useFormik } from 'formik';
 
 const NewAuction = () => {
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      brand: '',
+      model: '',
+      year: '',
+      course: '',
+      radioValue: '',
+      price: '',
+      vin: '',
+      engine: '',
+      power: '',
+      terms: '',
+    },
+
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
+  const handleRadioButtons = (e: any) => {
+    formik.values.radioValue = e.target.value;
+  };
+
+  const handleCheckbox = (e: any) => {
+    formik.values.terms = e.target.value;
+  };
+
   return (
     <main className="flex justify-center w-full min-h-screen">
       <div className="w-2/3 ">
@@ -9,7 +40,7 @@ const NewAuction = () => {
         </div>
         <div className="h-1 w-full bg-primary-orange" />
         <div className="mx-20 mt-8">
-          <form>
+          <form onSubmit={formik.handleSubmit}>
             <div className="mb-6">
               <label
                 htmlFor="title"
@@ -20,7 +51,10 @@ const NewAuction = () => {
               <input
                 type="text"
                 id="title"
-                className="bg-secondary-gray border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                name="title"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                 placeholder="Tytuł..."
                 required
               />
@@ -36,14 +70,17 @@ const NewAuction = () => {
                 <input
                   type="text"
                   id="brand"
-                  className="bg-secondary-gray border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  name="brand"
+                  value={formik.values.brand}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Marka..."
                   required
                 />
               </div>
               <div className="mb-6 w-1/2">
                 <label
-                  htmlFor="email"
+                  htmlFor="model"
                   className="block mb-2 text-md font-medium text-black"
                 >
                   Model:
@@ -51,7 +88,10 @@ const NewAuction = () => {
                 <input
                   type="text"
                   id="model"
-                  className="bg-secondary-gray border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  name="model"
+                  value={formik.values.model}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Model..."
                   required
                 />
@@ -68,7 +108,10 @@ const NewAuction = () => {
                 <input
                   type="number"
                   id="year"
-                  className="bg-secondary-gray border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  name="year"
+                  value={formik.values.year}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Rok produkcji..."
                   required
                 />
@@ -83,7 +126,10 @@ const NewAuction = () => {
                 <input
                   type="number"
                   id="course"
-                  className="bg-secondary-gray border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  name="course"
+                  value={formik.values.course}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Przebieg..."
                   required
                 />
@@ -96,32 +142,34 @@ const NewAuction = () => {
                   <li className="w-full">
                     <div className="flex items-center pl-3">
                       <input
-                        id="damaged-yes"
+                        id="horizontal-list-radio-license"
                         type="radio"
-                        value=""
-                        name="damaged-yes"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                        value="damaged"
+                        onChange={(e) => handleRadioButtons(e)}
+                        name="radio"
+                        className="w-4 h-4 text-primary-orange bg-white accent-primary-orange"
                       />
                       <label
                         htmlFor="horizontal-list-radio-license"
-                        className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="py-3 ml-2 w-full text-sm font-medium text-black"
                       >
                         Tak
                       </label>
                     </div>
                   </li>
-                  <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                  <li className="w-full">
                     <div className="flex items-center pl-3">
                       <input
                         id="horizontal-list-radio-id"
                         type="radio"
-                        value=""
-                        name="list-radio"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        value="not-damaged"
+                        onChange={(e) => handleRadioButtons(e)}
+                        name="radio"
+                        className="w-4 h-4 text-primary-orange bg-white accent-primary-orange"
                       />
                       <label
                         htmlFor="horizontal-list-radio-id"
-                        className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="py-3 ml-2 w-full text-sm font-medium text-black"
                       >
                         Nie
                       </label>
@@ -131,16 +179,77 @@ const NewAuction = () => {
               </div>
               <div className="mb-6 w-1/2">
                 <label
-                  htmlFor="course"
+                  htmlFor="price"
                   className="block mb-2 text-md font-medium text-black"
                 >
-                  Cena początkowa:
+                  Cena początkowa($):
                 </label>
                 <input
                   type="number"
-                  id="course"
-                  className="bg-secondary-gray border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
-                  placeholder="Przebieg..."
+                  id="price"
+                  name="price"
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  placeholder="Cena..."
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="vin"
+                className="block mb-2 text-md font-medium text-black"
+              >
+                VIN:
+              </label>
+              <input
+                type="text"
+                id="vin"
+                name="vin"
+                value={formik.values.vin}
+                onChange={formik.handleChange}
+                className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                placeholder="VIN..."
+                required
+              />
+            </div>
+            <div className="flex gap-20">
+              <div className="mb-6 w-1/2">
+                <label
+                  htmlFor="small"
+                  className="block mb-2 font-medium text-black"
+                >
+                  Rodzaj paliwa:
+                </label>
+                <select
+                  id="engine"
+                  className="block w-full h-[42px] p-2 mb-6 text-sm text-black border border-black rounded-lg bg-white focus:border-primary-orange"
+                  name="engine"
+                  value={formik.values.engine}
+                  onChange={formik.handleChange}
+                >
+                  <option value="Diesel">Diesel</option>
+                  <option value="Benzyna">Benzyna</option>
+                  <option value="BenzLpg">Benzyna + LPG</option>
+                </select>
+              </div>
+              <div className="mb-6 w-1/2">
+                <label
+                  htmlFor="power"
+                  className="block mb-2 text-md font-medium text-black"
+                >
+                  Moc (km):
+                </label>
+                <input
+                  type="number"
+                  id="power"
+                  name="power"
+                  value={formik.values.power}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  placeholder="Moc..."
                   required
                 />
               </div>
@@ -148,26 +257,23 @@ const NewAuction = () => {
             <div className="flex items-start mb-6">
               <div className="flex items-center h-5">
                 <input
-                  id="remember"
+                  id="terms"
+                  name="terms"
                   type="checkbox"
-                  value=""
-                  className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                  value="accepted"
+                  onChange={(e) => handleCheckbox(e)}
+                  className="w-4 h-4 bg-black rounded border border-black accent-primary-orange"
                   required
                 />
               </div>
               <label
-                htmlFor="remember"
-                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                htmlFor="terms"
+                className="ml-2 text-sm font-medium text-black"
               >
-                Remember me
+                Akceptuję regulamin
               </label>
             </div>
-            <button
-              type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Submit
-            </button>
+            <Button type="submit">Dodaj Aukcję</Button>
           </form>
         </div>
       </div>
