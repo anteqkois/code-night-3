@@ -41,7 +41,7 @@ const NewAuction = () => {
         <div className="h-1 w-full bg-primary-orange" />
         <div className="mx-20 mt-8">
           <form onSubmit={formik.handleSubmit}>
-            <div className="mb-6">
+            <div className="mb-3">
               <label
                 htmlFor="title"
                 className="block mb-2 text-md font-medium text-black"
@@ -60,7 +60,7 @@ const NewAuction = () => {
               />
             </div>
             <div className="flex gap-20">
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="brand"
                   className="block mb-2 text-md font-medium text-black"
@@ -78,7 +78,7 @@ const NewAuction = () => {
                   required
                 />
               </div>
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="model"
                   className="block mb-2 text-md font-medium text-black"
@@ -98,7 +98,7 @@ const NewAuction = () => {
               </div>
             </div>
             <div className="flex gap-20">
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="year"
                   className="block mb-2 text-md font-medium text-black"
@@ -116,7 +116,7 @@ const NewAuction = () => {
                   required
                 />
               </div>
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="course"
                   className="block mb-2 text-md font-medium text-black"
@@ -136,7 +136,7 @@ const NewAuction = () => {
               </div>
             </div>
             <div className="flex gap-20">
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <p className="font-medium mb-2 text-black ">Uszkodzony</p>
                 <ul className="items-center w-full text-sm font-medium text-black bg-white flex">
                   <li className="w-full">
@@ -177,7 +177,7 @@ const NewAuction = () => {
                   </li>
                 </ul>
               </div>
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="price"
                   className="block mb-2 text-md font-medium text-black"
@@ -197,7 +197,7 @@ const NewAuction = () => {
               </div>
             </div>
 
-            <div className="mb-6">
+            <div className="mb-3">
               <label
                 htmlFor="vin"
                 className="block mb-2 text-md font-medium text-black"
@@ -216,7 +216,7 @@ const NewAuction = () => {
               />
             </div>
             <div className="flex gap-20">
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="small"
                   className="block mb-2 font-medium text-black"
@@ -225,7 +225,7 @@ const NewAuction = () => {
                 </label>
                 <select
                   id="engine"
-                  className="block w-full h-[42px] p-2 mb-6 text-sm text-black border border-black rounded-lg bg-white focus:border-primary-orange"
+                  className="block w-full h-[42px] p-2 mb-3 text-sm text-black border border-black rounded-lg bg-white focus:border-primary-orange"
                   name="engine"
                   value={formik.values.engine}
                   onChange={formik.handleChange}
@@ -235,7 +235,7 @@ const NewAuction = () => {
                   <option value="BenzLpg">Benzyna + LPG</option>
                 </select>
               </div>
-              <div className="mb-6 w-1/2">
+              <div className="mb-3 w-1/2">
                 <label
                   htmlFor="power"
                   className="block mb-2 text-md font-medium text-black"
@@ -254,7 +254,7 @@ const NewAuction = () => {
                 />
               </div>
             </div>
-            <div className="flex items-start mb-6">
+            <div className="flex items-start mb-3">
               <div className="flex items-center h-5">
                 <input
                   id="terms"
