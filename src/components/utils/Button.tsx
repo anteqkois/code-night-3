@@ -41,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           },
           {
             default:
-              'bg-gradient-to-tr from-primary/80 via-primary/90 to-primary/95 hover:text-primary-200 hover:from-primary hover:via-primary hover:to-primary',
+              'bg-primary-orange hover:text-primary-200 hover:from-primary hover:via-primary hover:to-primary',
             success:
               'bg-gradient-to-tr from-secondary-500 via-secondary-600 to-secondary-700 hover:text-secondary-200 hover:from-secondary-700 hover:via-secondary-700 hover:to-secondary-800',
             danger:

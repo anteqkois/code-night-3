@@ -10,6 +10,7 @@ import {
 
 import { motion } from 'framer-motion';
 import { navVariants } from '../lib/motion';
+import { Button } from './utils';
 
 const NavBar = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
@@ -48,12 +49,7 @@ const NavBar = () => {
           </a>
 
           <div className="flex md:order-2 gap-2">
-            <button
-              type="button"
-              className="text-black active:ring-2 active:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 bg-primary-orange hover:bg-secondary-orange active:ring-secondary-orange"
-            >
-              Zaloguj się
-            </button>
+            <Button type="button">Zaloguj się</Button>
             <button
               type="button"
               className="text-primary-orange font-semibold bg-transparent hover:bg-secondary-orange hover:text-black border-2 border-primary-orange active:ring-2 active:outline-none active:ring-secondary-orange rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
