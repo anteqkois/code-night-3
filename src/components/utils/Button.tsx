@@ -1,3 +1,5 @@
+'use client';
+
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import classnames from 'classnames';

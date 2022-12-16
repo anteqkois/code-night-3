@@ -2,14 +2,31 @@
 import NavBar from '@/components/NavBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
+import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { publicProvider } from 'wagmi/providers/public';
 import './globals.css';
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 5 * 60 * 1000 } },
 });
 
-export default function RootLayout({ children }) {
+export const { chains, provider } = configureChains(
+  [chain.mainnet, chain.goerli],
+  [publicProvider()]
+);
+
+const client = createClient({
+  autoConnect: true,
+  provider,
+});
+
+type Props = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <head>
@@ -27,15 +44,17 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <NavBar />
-        <SessionProvider>
-          <QueryClientProvider client={queryClient}>
-            <Toaster
-              position="top-center"
-              reverseOrder={false}
-            />
-            {children}
-          </QueryClientProvider>
-        </SessionProvider>
+        <WagmiConfig client={client}>
+          <SessionProvider>
+            <QueryClientProvider client={queryClient}>
+              <Toaster
+                position="top-center"
+                reverseOrder={false}
+              />
+              {children}
+            </QueryClientProvider>
+          </SessionProvider>
+        </WagmiConfig>
       </body>
     </html>
   );
