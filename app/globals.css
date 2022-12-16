@@ -17,6 +17,11 @@
   }
 
   main {
+    margin: 2rem;
+  }
+
+  input:focus {
+    outline: none;
   }
 
   * {
