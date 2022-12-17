@@ -2,13 +2,11 @@
 
 import { Button } from '@/components/utils';
 import Image from 'next/image';
-import { useState } from 'react';
 import { useFormik } from 'formik';
 import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
+import { useQuery } from '@tanstack/react-query';
 
 const Auction = () => {
-  const actualPrice = 25000;
-
   const formik = useFormik({
     initialValues: {
       newBid: 25000,

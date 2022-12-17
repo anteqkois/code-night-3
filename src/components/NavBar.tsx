@@ -17,7 +17,7 @@ const NavBar = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
 
-  const isLogged = true;
+  const isLogged = false;
 
   const handleInput = (e: any) => {
     e.preventDefault();
