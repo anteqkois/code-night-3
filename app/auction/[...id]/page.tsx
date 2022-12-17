@@ -7,6 +7,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
+import { ethers } from 'ethers';
 import { useFormik } from 'formik';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -56,7 +57,8 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
       await contractWrite.writeAsync({
         recklesslySetUnpreparedArgs: [
           data?.data.auction.user.address,
-          values.newBid,
+          // values.newBid,
+          ethers.utils.parseUnits(values.newBid),
         ],
       });
       console.log({
@@ -106,7 +108,8 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
       recklesslySetUnpreparedArgs: [
         higestBid.user.address,
         data?.data.auction.user.address,
-        higestBid.amount,
+        ethers.utils.parseUnits(higestBid.amount),
+        // higestBid.amount,
       ],
     });
     toast.success(
