@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import {
   EyeIcon,
@@ -15,6 +16,7 @@ import { LoginButton } from './utils';
 const NavBar = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const router = useRouter();
 
   const isLogged = true;
 
@@ -35,8 +37,8 @@ const NavBar = () => {
       >
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <a
-            href="https://flowbite.com/"
-            className="flex items-center"
+            onClick={() => router.push('/')}
+            className="flex items-center cursor-pointer"
           >
             <img
               src="https://flowbite.com/docs/images/logo.svg"
@@ -107,9 +109,7 @@ const NavBar = () => {
                       ? 'text-primary-orange border-b-2 border-primary-orange'
                       : ''
                   }`}
-                  onClick={() => {
-                    setActiveSearch(!activeSearch);
-                  }}
+                  onClick={() => router.push('/auctions')}
                 >
                   <MagnifyingGlassIcon
                     width={18}

@@ -1,42 +1,45 @@
 'use client';
+import { Auction } from '@prisma/client';
 import Image from 'next/image';
 import React from 'react';
 import Slider from 'react-slick';
 import CarouselArrow from './CarouselArrow';
 
-export default function SimpleSlider() {
+export default function SimpleSlider({ cars }: { cars: Auction[] }) {
   var settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     nextArrow: <CarouselArrow />,
     prevArrow: <CarouselArrow />,
   };
+  if (cars == undefined) return;
+  
   return (
     <div>
       <Slider
         {...settings}
         className="mx-2"
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => (
+        {cars.map((car) => (
           <div className="my-4">
             <div className="mx-auto w-72 h-60 text-center rounded-xl shadow-2xl">
               <h3 className="text-sm font-medium py-3 rounded-t-xl border-b-2 border-black">
-                Mercedes-AMG S 63 E PERFORMANCE.
+                {car.mark} {car.model}
               </h3>
               <Image
                 className="block mx-auto pb-5"
                 alt="car"
                 width={208}
                 height={1}
-                src="https://assets.oneweb.mercedes-benz.com/iris/iris.jpg?COSY-EU-100-1713d0VXqNEFqtyO67PobzIr3eWsrrCsdRRzwQZg9pZbMw3SGtGyStsd2HdcUfp8qXGEubSJ0l3IJOB2NS1bApRTyI5uGoxQC30CQkzNBtum7jA2mhKViSF%25vq4tTyLRgLFYaxPrSrH1yBRn8wYTyoiZrMYM4FAK2Tg95Yn6PDCruSeWzQWtsd8htcUfircXGE4TXJ0lg6ZOB2PbnbApe79I5ul6xQC3vT6khQOZ9wJ1SeWvyVtsdPJ%25cUfxpBXGE0GYJ0lBHtOB2A85bAp5ilI5uCmZQC3zSTkzN7lbm7sDgubYwR9hDsxevqKj6hVNpLLxdYfqJVf%25XEd9B96N683eUHpi3v1LfIVf&imgt=P27&bkgnd=9&pov=BE040&uni=c&im=Crop,rect=(0,-25,1370,770),gravity=Center;Resize,width=350"
+                src={car.image!.url}
               />
               <div className="border-t-2 border-black pt-3 flex justify-evenly">
-                <span>2016</span>
-                <span>92 000 km</span>
-                <span>Benzyna</span>
+                <span>{car.year}</span>
+                <span>{car.mileage} km</span>
+                <span>{car.fuelType || 'Benzyna'}</span>
               </div>
             </div>
           </div>
