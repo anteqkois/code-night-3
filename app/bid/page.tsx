@@ -1,7 +1,6 @@
 'use client';
 
-import { Button, Input } from '@/components/utils';
-import { api } from '@/lib/apiConfig';
+import { Button } from '@/components/utils';
 import { useSession } from 'next-auth/react';
 import { ChangeEvent, useState } from 'react';
 import { erc20ABI, useContract, useContractWrite, useSignMessage } from 'wagmi';
@@ -18,7 +17,7 @@ const handleInputPattern = (amount: string) => {
 export default function Page() {
   const { data } = useSession();
   const { signMessageAsync } = useSignMessage();
-  const [amount, setAmount] = useState('0');
+  const [amount, setAmount] = useState(0);
   const auctionId = '1';
 
   const contract = useContract({
@@ -47,22 +46,23 @@ export default function Page() {
 
     //TODO make transferFrom
 
-    const res = api('/bid', {
-      data: { signature, user: data?.user, amount, auctionId },
-    });
+    // const res = api('/bid', {
+    //   method:'post',
+    //   data: { signature, user: data?.user, amount, auctionId },
+    // });
   };
 
   const handleAmount = (event: ChangeEvent<HTMLInputElement>) => {
-    const match = handleInputPattern(event?.target?.value);
-    if (match !== null) {
-      //@ts-ignore
-      setAmount(match);
-    }
+    // const match = handleInputPattern(event?.target?.value);
+    // if (match !== null) {
+    //@ts-ignore
+    setAmount(event?.target?.value);
+    // }
   };
 
   return (
     <main>
-      <Input
+      {/* <Input
         onChange={handleAmount}
         value={amount}
         label="Amount"
@@ -70,6 +70,18 @@ export default function Page() {
         inputMode="decimal"
         autoComplete="off"
         autoCorrect="off"
+      /> */}
+      <input
+        type="number"
+        id="CurrentPrice"
+        name="CurrentPrice"
+        // value={formik.values.CurrentPrice}
+        // onChange={formik.handleChange}
+        value={amount}
+        onChange={handleAmount}
+        className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+        placeholder="Cena..."
+        required
       />
       <Button onClick={() => handleBid()}>Make bid</Button>
     </main>
