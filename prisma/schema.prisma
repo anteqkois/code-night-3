@@ -41,7 +41,7 @@ model File {
 
 model Bid {
   id        Int      @id @default(autoincrement())
-  amount    String
+  amount    Int
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
   auction   Auction? @relation(fields: [auctionId], references: [id])
@@ -52,21 +52,22 @@ model Bid {
 }
 
 model Auction {
-  id           Int      @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
+  title        String
   mark         String
   model        String
-  year         DateTime
+  year         Int
   mileage      Int
   crashed      Boolean
-  CurrentPrice String
-  VIN          String
+  CurrentPrice Int
+  vin          String
   fuelType     String
   enginePower  Int
-  image        File     @relation(fields: [imageId], references: [id])
+  image        File    @relation(fields: [imageId], references: [id])
   imageId      String
   views        Int?
   bids         Bid[]
-  user         User?    @relation(fields: [userId], references: [id])
+  user         User?   @relation(fields: [userId], references: [id])
   userId       Int?
 
   @@index(userId)

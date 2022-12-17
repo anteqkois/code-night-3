@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { prisma } from '@/lib/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -6,12 +7,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    // console.log(req.body);
-    const { user, auctionId, amount, signature } = req.body;
+    const { id } = req.query;
 
-    // TODO create Bid and assign to auction PRISMA
+    const auction = prisma.auction.findFirst({ where: { id: Number(id) } });
 
-    res.status(200).json({});
+    res.status(200).json({ auction });
   } catch (err) {
     console.error(err);
     res.status(500).json({ err: 'Something went wrong' });
