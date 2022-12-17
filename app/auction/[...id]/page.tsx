@@ -2,9 +2,12 @@
 
 import { Button, PageSpinner } from '@/components/utils';
 import { api } from '@/lib/apiConfig';
-import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
+import {
+  ChatBubbleBottomCenterIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
-import { useFormik } from 'formik';
+import { useFormik, validateYupSchema } from 'formik';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
@@ -57,9 +60,14 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
     },
   });
 
-  let carData = data?.data.auction;
+  const bids = data?.data.auction.bids;
+  console.log(bids);
 
-  console.log(data?.data.auction);
+  bids
+    ? bids.map((bid: any) => {
+        console.log(bid?.user.address);
+      })
+    : '';
 
   useEffect(() => {
     if (data?.data) {
@@ -100,7 +108,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
                   className="border border-primary-orange text-center rounded mx-1"
                   value={formik.values.newBid}
                   onChange={formik.handleChange}
-                  step="0.1"
+                  step="100"
                 />
               </div>
               <div className="my-2 flex justify-center mx-8">
@@ -163,6 +171,25 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
           <div className="text-center p-1">{carData.enginePower}</div>
         </div>
       </div>
+
+      {bids
+        ? bids.map((bid: any) => {
+            <div className="flex gap-4">
+              <div className="flex w-fit p-4 my-4 flex-col justify-center items-center border border-primary-orange">
+                <div className="flex gap-2">
+                  <UserIcon
+                    width={24}
+                    height={24}
+                  />
+                  <h4>{bid?.user.address}</h4>
+                </div>
+                <h3>
+                  {data?.data.auction.CurrentPrice}(+{formik.values.newBid})$
+                </h3>
+              </div>
+            </div>;
+          })
+        : ''}
     </main>
   ) : (
     <PageSpinner />
