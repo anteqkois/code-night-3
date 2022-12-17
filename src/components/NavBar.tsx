@@ -1,17 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import {
-  MagnifyingGlassIcon,
-  HomeIcon,
-  UserIcon,
-  StarIcon,
-  EyeIcon,
-} from '@heroicons/react/24/outline';
+import { EyeIcon, HomeIcon, InboxIcon, MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 
 import { motion } from 'framer-motion';
 import { navVariants } from '../lib/motion';
-import { Button } from './utils';
+import { LoginButton } from './utils';
 
 const NavBar = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
@@ -51,13 +45,14 @@ const NavBar = () => {
           </a>
 
           <div className="flex md:order-2 gap-2">
-            <Button type="button">Zaloguj się</Button>
-            <button
+            <LoginButton />
+            {/* <Button type="button">Zaloguj się</Button> */}
+            {/* <button
               type="button"
               className="text-primary-orange font-semibold bg-transparent hover:bg-secondary-orange hover:text-black border-2 border-primary-orange active:ring-2 active:outline-none active:ring-secondary-orange rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
             >
               Zarejestruj się
-            </button>
+            </button> */}
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -127,11 +122,11 @@ const NavBar = () => {
                       // text-primary-orange border-b-2 border-primary-orange
                       aria-current="page"
                     >
-                      <UserIcon
+                      <InboxIcon
                         width={18}
                         height={18}
                       />
-                      Moje konto
+                      Wiadomości
                     </a>
                   </li>
                   <li>
