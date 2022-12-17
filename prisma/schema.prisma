@@ -42,6 +42,7 @@ model File {
 model Bid {
   id        Int      @id @default(autoincrement())
   amount    Int
+  signature String
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
   auction   Auction? @relation(fields: [auctionId], references: [id])
@@ -62,6 +63,7 @@ model Auction {
   CurrentPrice Int
   vin          String
   fuelType     String
+  
   enginePower  Int
   image        File    @relation(fields: [imageId], references: [id])
   imageId      String
