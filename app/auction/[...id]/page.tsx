@@ -12,12 +12,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import {
-  erc20ABI,
-  useContractRead,
-  useContractWrite,
-  useSignMessage,
-} from 'wagmi';
+import { erc20ABI, useContractWrite, useSignMessage } from 'wagmi';
 
 const Auction = ({ params }: { params: { id: string[] } }) => {
   const { data: session } = useSession();
@@ -46,17 +41,6 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
     contractInterface: erc20ABI,
     functionName: 'transferFrom',
   });
-
-  const contractReadAllowance = useContractRead({
-    // mode: 'recklesslyUnprepared',
-    addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
-    contractInterface: erc20ABI,
-    functionName: 'allowance',
-    args: [session?.user.address, data?.data.auction.user.address],
-  });
-  useEffect(() => {
-    console.log(contractReadAllowance);
-  }, [contractReadAllowance]);
 
   const formik = useFormik({
     initialValues: {
@@ -106,21 +90,18 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
 
   const expireDateToFormat = data?.data.auction.expireDate;
   const expireDate: any = new Date(expireDateToFormat);
-  // console.log(expireDate);
   const actualDate: any = new Date();
-  // console.log(actualDate);
   const diffTime = Math.abs(expireDate - actualDate);
-  // console.log(diffTime);
-  // const diffTimeDay = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  // console.log(diffTimeDay);
-  // const diffTimeHour = Math.round(diffTime / (1000 * 60 * 60));
-  // console.log(diffTimeHour);
-  // const diffTimeMin = Math.round(diffTime / (1000 * 60));
-  // console.log(diffTimeMin);
-  const diffTimeSec = Math.floor(diffTime / 1000);
-  // console.log(diffTimeSec);
 
+  const diffTimeSec = Math.floor(diffTime / 1000);
+
+  // FROM 0x69e952d100e786aaa6b63a3473d67ccaf1183271
+  //SPENDER 0x8cDb08dD113ca08465F81ACC9b2F24A85cC3ef70
   const endAuction = async () => {
+    console.log({
+      1: higestBid.user.address,
+      2: data?.data.auction.user.address,
+    });
     await contractWriteTransfer.writeAsync({
       recklesslySetUnpreparedArgs: [
         higestBid.user.address,
@@ -185,7 +166,9 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
                 </Button>
               </div>
             </form>
-            <Button onClick={() => endAuction()}>End</Button>
+            <div className="my-2 flex justify-center mx-8">
+              <Button onClick={() => endAuction()}>Odbierz swoje tokeny</Button>
+            </div>
             <h5 className="text-center text-black">
               Aktualna liczba uczestników licytacji: 4
             </h5>
