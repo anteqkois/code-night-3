@@ -41,26 +41,82 @@ const NavBar = () => {
             onClick={() => router.push('/')}
             className="flex items-center cursor-pointer"
           >
-            <svg width="59" height="58" viewBox="0 0 59 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_d_1_23)">
-            <path d="M31.625 24.7159C31.625 26.1878 30.4917 27.3409 29.142 27.3409C27.7924 27.3409 26.6591 26.1878 26.6591 24.7159C26.6591 23.244 27.7924 22.0909 29.142 22.0909C30.4917 22.0909 31.625 23.244 31.625 24.7159Z" fill="white" stroke="white"/>
-            <path d="M11.2443 18.608C22.0398 22.2443 21.6136 35.2746 20.0511 41.3352H19.625C18.6307 41.3352 5.5625 29.6875 11.2443 18.608Z" fill="white" stroke="white"/>
-            <path d="M46.8386 30.9534C44.9481 42.1868 32.0133 43.8185 25.7822 43.2301L25.7151 42.8093C25.5585 41.8274 35.0024 27.0877 46.8386 30.9534Z" fill="white" stroke="white"/>
-            <path d="M47.892 24.7159L14.6534 12.7841V12.5C28.6307 -1.47727 48.1761 9.375 47.892 24.7159Z" fill="white" stroke="white"/>
-            <path d="M53.7841 25C53.7841 38.5283 42.7541 49.5 29.142 49.5C15.5299 49.5 4.5 38.5283 4.5 25C4.5 11.4717 15.5299 0.5 29.142 0.5C42.7541 0.5 53.7841 11.4717 53.7841 25Z" stroke="white"/>
-            </g>
-            <defs>
-            <filter id="filter0_d_1_23" x="0" y="0" width="58.2841" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-            <feOffset dy="4"/>
-            <feGaussianBlur stdDeviation="2"/>
-            <feComposite in2="hardAlpha" operator="out"/>
-            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_23"/>
-            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_23" result="shape"/>
-            </filter>
-            </defs>
+            <svg
+              width="59"
+              height="58"
+              viewBox="0 0 59 58"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g filter="url(#filter0_d_1_23)">
+                <path
+                  d="M31.625 24.7159C31.625 26.1878 30.4917 27.3409 29.142 27.3409C27.7924 27.3409 26.6591 26.1878 26.6591 24.7159C26.6591 23.244 27.7924 22.0909 29.142 22.0909C30.4917 22.0909 31.625 23.244 31.625 24.7159Z"
+                  fill="white"
+                  stroke="white"
+                />
+                <path
+                  d="M11.2443 18.608C22.0398 22.2443 21.6136 35.2746 20.0511 41.3352H19.625C18.6307 41.3352 5.5625 29.6875 11.2443 18.608Z"
+                  fill="white"
+                  stroke="white"
+                />
+                <path
+                  d="M46.8386 30.9534C44.9481 42.1868 32.0133 43.8185 25.7822 43.2301L25.7151 42.8093C25.5585 41.8274 35.0024 27.0877 46.8386 30.9534Z"
+                  fill="white"
+                  stroke="white"
+                />
+                <path
+                  d="M47.892 24.7159L14.6534 12.7841V12.5C28.6307 -1.47727 48.1761 9.375 47.892 24.7159Z"
+                  fill="white"
+                  stroke="white"
+                />
+                <path
+                  d="M53.7841 25C53.7841 38.5283 42.7541 49.5 29.142 49.5C15.5299 49.5 4.5 38.5283 4.5 25C4.5 11.4717 15.5299 0.5 29.142 0.5C42.7541 0.5 53.7841 11.4717 53.7841 25Z"
+                  stroke="white"
+                />
+              </g>
+              <defs>
+                <filter
+                  id="filter0_d_1_23"
+                  x="0"
+                  y="0"
+                  width="58.2841"
+                  height="58"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood
+                    flood-opacity="0"
+                    result="BackgroundImageFix"
+                  />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dy="4" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite
+                    in2="hardAlpha"
+                    operator="out"
+                  />
+                  <feColorMatrix
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                  />
+                  <feBlend
+                    mode="normal"
+                    in2="BackgroundImageFix"
+                    result="effect1_dropShadow_1_23"
+                  />
+                  <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_dropShadow_1_23"
+                    result="shape"
+                  />
+                </filter>
+              </defs>
             </svg>
             <span className="self-center text-xl font-semibold whitespace-nowrap text-white pl-2">
               BidStash
@@ -158,7 +214,7 @@ const NavBar = () => {
                       href="#"
                       className="flex gap-2 p-2 hover:text-primary-orange text-white"
                       // klasy do aktywnej strony:
-                      // text-primary-orange border-b-2 border-primary-orange
+                      // textnew Date('2022-12-17T05:34')-primary-orange border-b-2 border-primary-orange
                       aria-current="page"
                     >
                       <InboxIcon

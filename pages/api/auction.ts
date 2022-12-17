@@ -15,6 +15,7 @@ export default async function handler(
         //CREATE IMAGE
         const {
           file,
+          expireDate,
           fileName,
           userAddress,
           userId,
@@ -43,6 +44,7 @@ export default async function handler(
             enginePower,
             fuelType,
             mark,
+            expireDate: new Date(expireDate),
             mileage,
             model,
             vin,
@@ -62,6 +64,7 @@ export default async function handler(
         });
 
         // TODO create Bid and assign to auction PRISMA
+        // console.log(auction);
 
         res.status(200).json({ auction });
       } catch (err) {
