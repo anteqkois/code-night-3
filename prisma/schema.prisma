@@ -41,7 +41,7 @@ model File {
 
 model Bid {
   id        Int      @id @default(autoincrement())
-  amount    Decimal @db.Decimal(10, 10)
+  amount    Int
   signature String
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
@@ -60,7 +60,7 @@ model Auction {
   year         Int
   mileage      Int
   crashed      Boolean
-  CurrentPrice Decimal @db.Decimal(10, 10)
+  CurrentPrice Int
   vin          String
   fuelType     String
   expireDate   DateTime
