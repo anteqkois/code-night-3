@@ -91,6 +91,8 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   const diffTimeSec = Math.floor(diffTime / 1000);
   console.log(diffTimeSec);
 
+  let carData = data?.data.auction;
+
   return data?.data ? (
     <main className="lg:mx-64 mx-32 h-full">
       <div className="flex">
