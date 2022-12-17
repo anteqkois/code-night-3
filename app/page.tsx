@@ -14,14 +14,9 @@ export default function Home() {
               <span className='bg-black rounded px-2 py-[2px] text-white'>Dostawa pod dom</span>
               <span className='bg-black rounded px-2 py-[2px] text-white'>Odprawa celna</span>
             </div>
-            <button className="mt-3 flex justify-center items-center py-2.5 px-2 text-center w-full text-sm font-medium text-black bg-primary-orange rounded-lg focus:ring-4 focus:outline-none">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.902 7.098a3.75 3.75 0 013.903-.884.75.75 0 10.498-1.415A5.25 5.25 0 008.005 9.75H7.5a.75.75 0 000 1.5h.054a5.281 5.281 0 000 1.5H7.5a.75.75 0 000 1.5h.505a5.25 5.25 0 006.494 2.701.75.75 0 00-.498-1.415 3.75 3.75 0 01-4.252-1.286h3.001a.75.75 0 000-1.5H9.075a3.77 3.77 0 010-1.5h3.675a.75.75 0 000-1.5h-3c.105-.14.221-.274.348-.402z" clip-rule="evenodd" />
-              </svg>
-              <span className='pl-1'>Zacznij licytować</span>
-            </button>
-            <div className='h-48 mt-4 flex justify-center items-center'>
+            <div className='m-5 h-64 mt-4 flex flex-col justify-center items-center bg-primary-orange rounded'>
               <img src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/2018/png/iconmonstr-gavel-1.png&r=0&g=0&b=0" width={150} alt="bid" />
+              <span className='pl-1 font-medium pt-4'>Zacznij licytować już teraz</span>
             </div>
           </div>
           <form className='bg-white w-[450px] h-96 rounded shadow-2xl'>
