@@ -6,6 +6,9 @@ export default function Home() {
   return (
     <div>
       <main>
+<<<<<<< HEAD
+        <div className="mx-32">
+=======
         <div className='h-[calc(100vh-91px)] flex justify-center items-start pt-20 bg-gradient-to-r from-primary-orange to-blue-500e'>
           <div className='w-[450px] h-96 mr-20 rounded shadow-2xl bg-white p-2'>
             <h1 className='text-center pt-2 text-3xl'>AUKCJE SAMOCHODOWE</h1>
@@ -66,16 +69,27 @@ export default function Home() {
         </div>
         <div>
           <div className='bg-gradient-to-r from-primary-orange my-5 py-5 text-center text-3xl'>Znajdź swój wymarzony samochód w okazyjnej cenie</div>
+>>>>>>> 132d9cb713bfd05ff0e412be1fc7a8d3ff823e73
           <div className="pt-5 h-96">
-            <div className='text-center py-4'>
-              <span className='text-center text-3xl px-10 pb-3 font-thin border-b-2 border-black'>Ostatnio wyszukiwane</span>
+            <div className="text-center py-4">
+              <span className="text-center text-3xl px-10 pb-3 font-thin border-b-2 border-black">
+                Ostatnio wyszukiwane
+              </span>
             </div>
             <SliderCarousel />
           </div>
+<<<<<<< HEAD
+          <div className="text-center bg-red-500">
+            Tutaj trzeba zajebac jakis baner
+          </div>
+=======
           <div className='bg-gradient-to-l from-primary-orange my-5 py-5 text-center text-3xl'>Nasze oferty dobrane specjalnie dla ciebie</div>
+>>>>>>> 132d9cb713bfd05ff0e412be1fc7a8d3ff823e73
           <div className="h-80 pt-5">
-            <div className='text-center py-4'>
-              <span className='text-center text-3xl px-10 pb-3 font-thin border-b-2 border-black'>Wybrane dla ciebie</span>
+            <div className="text-center py-4">
+              <span className="text-center text-3xl px-10 pb-3 font-thin border-b-2 border-black">
+                Wybrane dla ciebie
+              </span>
             </div>
             <SliderCarousel />
           </div>
