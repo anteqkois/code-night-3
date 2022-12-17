@@ -20,7 +20,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   const { data, error } = useQuery({
     queryKey: ['auction', `${params.id[0]}`],
     queryFn: () => api(`http://localhost:3000/api/auction/${params.id[0]}`),
-    refetchInterval: 100000,
+    refetchInterval: 1000,
   });
   const { signMessageAsync } = useSignMessage();
 
@@ -58,7 +58,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
         recklesslySetUnpreparedArgs: [
           data?.data.auction.user.address,
           // values.newBid,
-          ethers.utils.parseUnits(values.newBid),
+          ethers.utils.parseUnits(values.newBid.toString()),
         ],
       });
       console.log({
@@ -108,7 +108,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
       recklesslySetUnpreparedArgs: [
         higestBid.user.address,
         data?.data.auction.user.address,
-        ethers.utils.parseUnits(higestBid.amount),
+        ethers.utils.parseUnits(higestBid.amount.toString()),
         // higestBid.amount,
       ],
     });
