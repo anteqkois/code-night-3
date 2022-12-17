@@ -71,7 +71,8 @@ export default async function handler(
       break;
 
     default:
-      const auctions = prisma.auction.findMany();
+      console.log('GETTTT');
+      const auctions = await prisma.auction.findMany();
       res.status(200).json({ auctions });
       break;
   }
