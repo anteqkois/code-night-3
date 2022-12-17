@@ -43,7 +43,6 @@ export default function RootLayout({ children }: Props) {
         />
       </head>
       <body>
-        <NavBar />
         <WagmiConfig client={client}>
           <SessionProvider>
             <QueryClientProvider client={queryClient}>
@@ -51,6 +50,7 @@ export default function RootLayout({ children }: Props) {
                 position="top-center"
                 reverseOrder={false}
               />
+              <NavBar />
               {children}
             </QueryClientProvider>
           </SessionProvider>

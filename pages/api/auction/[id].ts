@@ -9,8 +9,10 @@ export default async function handler(
   try {
     const { id } = req.query;
 
-    const auction = prisma.auction.findFirst({ where: { id: Number(id) } });
-
+    const auction = await prisma.auction.findFirst({
+      where: { id: Number(id) },
+      include: { bids: true, image: true, user: true },
+    });
     res.status(200).json({ auction });
   } catch (err) {
     console.error(err);

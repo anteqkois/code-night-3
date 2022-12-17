@@ -2,16 +2,27 @@
 
 import { Button } from '@/components/utils';
 import Image from 'next/image';
-import { useState } from 'react';
 import { useFormik } from 'formik';
 import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
+import { useQuery } from '@tanstack/react-query';
+import { api } from '@/lib/apiConfig';
 
-const Auction = () => {
-  const actualPrice = 25000;
+const Auction = ({ params }: { params: { id: string[] } }) => {
+  console.log(params.id[0]);
+
+  const { data, error } = useQuery({
+    queryKey: ['auction', `${params.id[0]}`],
+    queryFn: () => api(`http://localhost:3000/api/auction/${params.id[0]}`),
+    // queryFn: () => api('http://localhost:3000/api/auction'),
+    suspense: true,
+    // retry: false,
+    refetchInterval: 5000,
+  });
+  console.log(data?.data.auction.image.url);
 
   const formik = useFormik({
     initialValues: {
-      newBid: 25000,
+      newBid: data?.data.auction.CurrentPrice,
     },
 
     onSubmit: (values) => {
@@ -23,19 +34,19 @@ const Auction = () => {
     <main className="lg:mx-64 mx-32 h-full">
       <div className="flex">
         <div className="w-3/5 my-8 mx-3">
-          <h2>Sprzedający adam123</h2>
+          <h2>{data?.data.auction.title}</h2>
           <Image
             className="my-8"
             width={480}
             height={360}
             alt="frontImg"
-            src="https://assets.oneweb.mercedes-benz.com/iris/iris.jpg?COSY-EU-100-1713d0VXqNEFqtyO67PobzIr3eWsrrCsdRRzwQZg9pZbMw3SGtGyStsd2HdcUfp8qXGEubSJ0l3IJOB2NS1bApRTyI5uGoxQC30CQkzNBtum7jA2mhKViSF%25vq4tTyLRgLFYaxPrSrH1yBRn8wYTyoiZrMYM4FAK2Tg95Yn6PDCruSeWzQWtsd8htcUfircXGE4TXJ0lg6ZOB2PbnbApe79I5ul6xQC3vT6khQOZ9wJ1SeWvyVtsdPJ%25cUfxpBXGE0GYJ0lBHtOB2A85bAp5ilI5uCmZQC3zSTkzN7lbm7sDgubYwR9hDsxevqKj6hVNpLLxdYfqJVf%25XEd9B96N683eUHpi3v1LfIVf&imgt=P27&bkgnd=9&pov=BE040&uni=c&im=Crop,rect=(0,-25,1370,770),gravity=Center;Resize,width=350"
+            src={`${data?.data.auction.image.url}`}
           />
         </div>
         <div className="w-2/5 my-8 mx-3 border border-primary-orange h-fit pb-4">
           <div className="bg-primary-orange p-2">
             <h3 className="text-center text-black text-bold">
-              Aktualna oferta: 25 000$
+              Aktualna oferta: {data?.data.auction.CurrentPrice}$
             </h3>
           </div>
           <div className=" flex flex-col my-auto">
@@ -83,28 +94,28 @@ const Auction = () => {
       <h3 className="text-black my-2">Dane pojazdu:</h3>
       <div className="grid grid-cols-4 grid-rows-2 border border-primary-orange my-2 place-items-center p-3 ">
         <div className="p-3">
-          <p>Marka: Audi</p>
+          <p>Marka: {data?.data.auction.mark}</p>
         </div>
         <div className="">
-          <p>Model: A5</p>
+          <p>Model: {data?.data.auction.model}</p>
         </div>
         <div className="">
-          <p>Rok produkcji: 2020</p>
+          <p>Rok produkcji: {data?.data.auction.year}</p>
         </div>
         <div className="">
-          <p>Przebieg: 2000000km</p>
+          <p>Przebieg: {data?.data.auction.mileage}km</p>
         </div>
         <div className="">
-          <p>Uszkodzony: Nie</p>
+          <p>Uszkodzony: {data?.data.auction.mark ? 'nie' : 'tak'}</p>
         </div>
         <div className="">
-          <p>Vin: 82645645</p>
+          <p>Vin: {data?.data.auction.vin}</p>
         </div>
         <div className="">
-          <p>Rodzaj paliwa: Benzyna</p>
+          <p>Rodzaj paliwa: {data?.data.auction.fuelType}</p>
         </div>
         <div className="">
-          <p>Moc silnika: 200KM</p>
+          <p>Moc silnika: {data?.data.auction.enginePower}KM</p>
         </div>
       </div>
     </main>

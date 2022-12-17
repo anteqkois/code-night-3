@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/utils';
 import { getCsrfToken, signIn, signOut, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import { SiweMessage } from 'siwe';
 import {
   useAccount,
@@ -49,7 +48,6 @@ export const LoginButton = function () {
     }
   };
 
-
   const handleLogout = () => {
     disconnect();
     signOut();
@@ -89,7 +87,7 @@ export const LoginButton = function () {
         }
       }}
     >
-      Zaloguj
+      Zaloguj się
     </Button>
   );
 };
