@@ -11,7 +11,7 @@ export default async function handler(
 
     const auction = await prisma.auction.findFirst({
       where: { id: Number(id) },
-      include: { bids: true, image: true, user: true },
+      include: { bids: { include: { user: true } }, image: true, user: true },
     });
     res.status(200).json({ auction });
   } catch (err) {

@@ -1,36 +1,71 @@
 'use client';
 
-import { Button } from '@/components/utils';
-import Image from 'next/image';
-import { useFormik } from 'formik';
+import { Button, PageSpinner } from '@/components/utils';
+import { api } from '@/lib/apiConfig';
 import { ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '@/lib/apiConfig';
+import { useFormik } from 'formik';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { erc20ABI, useContractWrite, useSignMessage } from 'wagmi';
 
 const Auction = ({ params }: { params: { id: string[] } }) => {
-  console.log(params.id[0]);
-
+  const { data: session } = useSession();
   const { data, error } = useQuery({
     queryKey: ['auction', `${params.id[0]}`],
     queryFn: () => api(`http://localhost:3000/api/auction/${params.id[0]}`),
-    // queryFn: () => api('http://localhost:3000/api/auction'),
-    suspense: true,
-    // retry: false,
     refetchInterval: 5000,
   });
-  console.log(data?.data.auction.image.url);
+  const { signMessageAsync } = useSignMessage();
+
+  const contractWrite = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
+    contractInterface: erc20ABI,
+    functionName: 'approve',
+  });
 
   const formik = useFormik({
     initialValues: {
       newBid: data?.data.auction.CurrentPrice,
     },
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log(values);
+      const signature = await signMessageAsync({
+        message: `You bit ${values.newBid} $CN`,
+      });
+
+      await contractWrite.writeAsync({
+        recklesslySetUnpreparedArgs: [
+          data?.data.auction.user.address,
+          values.newBid,
+        ],
+      });
+
+      const res = await api('/bid', {
+        method: 'post',
+        data: {
+          signature,
+          userAddress: session?.user.address,
+          amount: values.newBid,
+          auctionId: data?.data.auction.id,
+        },
+      });
+      console.log(res);
     },
   });
 
-  return (
+  console.log(data?.data.auction);
+
+  useEffect(() => {
+    if (data?.data) {
+      formik.setFieldValue('newBid', data?.data.auction.CurrentPrice);
+    }
+  }, [data?.data]);
+
+  return data?.data ? (
     <main className="lg:mx-64 mx-32 h-full">
       <div className="flex">
         <div className="w-3/5 my-8 mx-3">
@@ -63,7 +98,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
                   className="border border-primary-orange text-center rounded mx-1"
                   value={formik.values.newBid}
                   onChange={formik.handleChange}
-                  step="250"
+                  step="0.1"
                 />
               </div>
               <div className="my-2 flex justify-center mx-8">
@@ -119,6 +154,8 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
         </div>
       </div>
     </main>
+  ) : (
+    <PageSpinner />
   );
 };
 

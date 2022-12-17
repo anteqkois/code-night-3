@@ -6,21 +6,28 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { userAddress, auctionId, amount, signature } = req.body;
+
   try {
-    // console.log(req.body);
-    const { user, auctionId, amount, signature } = req.body;
+    const bid = await prisma.bid.create({
+      data: {
+        amount,
+        signature,
+        auction: { connect: { id: auctionId } },
+        user: { connect: { address: userAddress } },
+      },
+      include: { auction: true, user: true },
+    });
 
-    try {
-      const bid = await prisma.bid.create({data:{amount}})
-    } catch (error) {
-      
-    }
+    await prisma.auction.update({
+      where: { id: auctionId },
+      data: { CurrentPrice: amount },
+    });
 
-    // TODO create Bid and assign to auction PRISMA
-
-    res.status(200).json({});
-  } catch (err) {
-    console.error(err);
+    console.log(bid);
+    res.status(200).json({ bid });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ err: 'Something went wrong' });
   }
 }
