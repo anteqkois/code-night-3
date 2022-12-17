@@ -152,31 +152,39 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
         </div>
       </div>
 
-      <h3 className="text-black my-2">Dane pojazdu:</h3>
-      <div className="grid grid-cols-4 grid-rows-2 border border-primary-orange my-2 place-items-center p-3 ">
-        <div className="p-3">
-          <p>Marka: {data?.data.auction.mark}</p>
+      <h3 className="text-white bg-black p-2 rounded-t-xl">Dane samochodu:</h3>
+      <div className="grid grid-cols-4 grid-rows-2">
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Marka</span>
+          <div className="text-center p-1">{carData.mark}</div>
         </div>
-        <div className="">
-          <p>Model: {data?.data.auction.model}</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Model</span>
+          <div className="text-center p-1">{carData.model}</div>
         </div>
-        <div className="">
-          <p>Rok produkcji: {data?.data.auction.year}</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Rok Produkcji</span>
+          <div className="text-center p-1">{carData.year}</div>
         </div>
-        <div className="">
-          <p>Przebieg: {data?.data.auction.mileage}km</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Przebieg</span>
+          <div className="text-center p-1">{carData.mileage}</div>
         </div>
-        <div className="">
-          <p>Uszkodzony: {data?.data.auction.mark ? 'nie' : 'tak'}</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Uszkodzony</span>
+          <div className="text-center p-1">{carData.mark ? 'nie' : 'tak'}</div>
         </div>
-        <div className="">
-          <p>Vin: {data?.data.auction.vin}</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Numer VIN</span>
+          <div className="text-center p-1">{carData.vin}</div>
         </div>
-        <div className="">
-          <p>Rodzaj paliwa: {data?.data.auction.fuelType}</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Rodzaj paliwa</span>
+          <div className="text-center p-1">{carData.fuelType}</div>
         </div>
-        <div className="">
-          <p>Moc silnika: {data?.data.auction.enginePower}KM</p>
+        <div className="bg-primary-orange text-center p-1">
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Konie mechaniczne</span>
+          <div className="text-center p-1">{carData.enginePower}</div>
         </div>
       </div>
 
