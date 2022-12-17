@@ -1,26 +1,75 @@
 'use client';
 
 import { Button } from '@/components/utils';
+import { api } from '@/lib/apiConfig';
 import { useFormik } from 'formik';
+import { useSession } from 'next-auth/react';
+import { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
+
+type InitialValues = {
+  title: string;
+  mark: string;
+  model: string;
+  year: number;
+  mileage: string;
+  radioValue: string;
+  CurrentPrice: string;
+  vin: string;
+  fuelType: string;
+  enginePower: string;
+  terms: string;
+  file: File | null;
+};
+
+const initialValues: InitialValues = {
+  title: '',
+  mark: '',
+  model: '',
+  year: 0,
+  mileage: '',
+  radioValue: '',
+  CurrentPrice: '',
+  vin: '',
+  fuelType: '',
+  enginePower: '',
+  terms: '',
+  file: null,
+};
 
 const NewAuction = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [previewImage, setPreviewImage] = useState<string>();
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const { data } = useSession();
   const formik = useFormik({
-    initialValues: {
-      title: '',
-      brand: '',
-      model: '',
-      year: '',
-      course: '',
-      radioValue: '',
-      price: '',
-      vin: '',
-      engine: '',
-      power: '',
-      terms: '',
-    },
+    initialValues,
 
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const reader = new FileReader();
+        reader.readAsDataURL(values.file!);
+
+        reader.onloadend = async () => {
+          const res = await api('/auction', {
+            method: 'post',
+            data: {
+              ...values,
+              userAddress: data?.user.address,
+              file: reader.result,
+              fileName: values.file?.name,
+              crashed: values.radioValue === 'true',
+              userId: data?.user.id,
+            },
+          });
+          toast.success('Twoje ogłoszenie zostało dodane !');
+          //TODO przekierować na stronę ogłoszenia
+          console.log(res);
+        };
+      } catch (error) {
+        console.log(error);
+        toast.error('Coś poszło nie tak, twoje ogłoszenie nie zostało dodane.');
+      }
     },
   });
 
@@ -62,16 +111,16 @@ const NewAuction = () => {
             <div className="flex gap-20">
               <div className="mb-3 w-1/2">
                 <label
-                  htmlFor="brand"
+                  htmlFor="mark"
                   className="block mb-2 text-md font-medium text-black"
                 >
                   Marka:
                 </label>
                 <input
                   type="text"
-                  id="brand"
-                  name="brand"
-                  value={formik.values.brand}
+                  id="mark"
+                  name="mark"
+                  value={formik.values.mark}
                   onChange={formik.handleChange}
                   className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Marka..."
@@ -118,16 +167,16 @@ const NewAuction = () => {
               </div>
               <div className="mb-3 w-1/2">
                 <label
-                  htmlFor="course"
+                  htmlFor="mileage"
                   className="block mb-2 text-md font-medium text-black"
                 >
                   Przebieg:
                 </label>
                 <input
                   type="number"
-                  id="course"
-                  name="course"
-                  value={formik.values.course}
+                  id="mileage"
+                  name="mileage"
+                  value={formik.values.mileage}
                   onChange={formik.handleChange}
                   className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Przebieg..."
@@ -144,7 +193,7 @@ const NewAuction = () => {
                       <input
                         id="horizontal-list-radio-license"
                         type="radio"
-                        value="damaged"
+                        value="true"
                         onChange={(e) => handleRadioButtons(e)}
                         name="radio"
                         className="w-4 h-4 text-primary-orange bg-white accent-primary-orange"
@@ -162,7 +211,7 @@ const NewAuction = () => {
                       <input
                         id="horizontal-list-radio-id"
                         type="radio"
-                        value="not-damaged"
+                        value="false"
                         onChange={(e) => handleRadioButtons(e)}
                         name="radio"
                         className="w-4 h-4 text-primary-orange bg-white accent-primary-orange"
@@ -179,16 +228,16 @@ const NewAuction = () => {
               </div>
               <div className="mb-3 w-1/2">
                 <label
-                  htmlFor="price"
+                  htmlFor="CurrentPrice"
                   className="block mb-2 text-md font-medium text-black"
                 >
                   Cena początkowa($):
                 </label>
                 <input
                   type="number"
-                  id="price"
-                  name="price"
-                  value={formik.values.price}
+                  id="CurrentPrice"
+                  name="CurrentPrice"
+                  value={formik.values.CurrentPrice}
                   onChange={formik.handleChange}
                   className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Cena..."
@@ -224,10 +273,10 @@ const NewAuction = () => {
                   Rodzaj paliwa:
                 </label>
                 <select
-                  id="engine"
+                  id="fuelType"
                   className="block w-full h-[42px] p-2 mb-3 text-sm text-black border border-black rounded-lg bg-white focus:border-primary-orange"
-                  name="engine"
-                  value={formik.values.engine}
+                  name="fuelType"
+                  value={formik.values.fuelType}
                   onChange={formik.handleChange}
                 >
                   <option value="Diesel">Diesel</option>
@@ -237,21 +286,77 @@ const NewAuction = () => {
               </div>
               <div className="mb-3 w-1/2">
                 <label
-                  htmlFor="power"
+                  htmlFor="enginePower"
                   className="block mb-2 text-md font-medium text-black"
                 >
                   Moc (km):
                 </label>
                 <input
                   type="number"
-                  id="power"
-                  name="power"
-                  value={formik.values.power}
+                  id="enginePower"
+                  name="enginePower"
+                  value={formik.values.enginePower}
                   onChange={formik.handleChange}
                   className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   placeholder="Moc..."
                   required
                 />
+              </div>
+            </div>
+            <div className="flex items-start mb-3">
+              <div className="flex items-center h-5">
+                <input
+                  // id="terms"
+                  // name="terms"
+                  // type="checkbox"
+                  // value="accepted"
+                  // onChange={(e) => handleCheckbox(e)}
+                  // className="w-4 h-4 bg-black rounded border border-black accent-primary-orange"
+                  // required
+                  ref={inputRef}
+                  type="file"
+                  id="file"
+                  name="file"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.readAsDataURL(file);
+
+                      reader.onloadend = () => {
+                        setPreviewImage(reader.result as string);
+                        // formik.setFieldValue('file', reader.result);
+                      };
+
+                      formik.setFieldValue(
+                        'file',
+                        event.currentTarget.files?.[0]
+                      );
+                    }
+                  }}
+                  accept="image/png, image/jpeg"
+                  className="hidden"
+                />
+              </div>
+              <div className="flex flex-col">
+                <Button
+                  type="button"
+                  onClick={() => inputRef.current?.click()}
+                  className="max-w-[121px]"
+                >
+                  Dodaj zdjęcie
+                </Button>
+                {previewImage && (
+                  <>
+                    <p className="block mb-2 text-md font-medium text-black">
+                      Wybrane zdjęcie
+                    </p>
+                    <img
+                      src={previewImage}
+                      className="mt-4 max-w-4xl"
+                    />
+                  </>
+                )}
               </div>
             </div>
             <div className="flex items-start mb-3">

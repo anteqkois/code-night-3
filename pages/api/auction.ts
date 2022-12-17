@@ -10,13 +10,15 @@ export default async function handler(
   switch (req.method) {
     case 'POST':
       try {
-        console.log(req.body);
+        // console.log(req.body);
 
         //CREATE IMAGE
         const {
           file,
           fileName,
           userAddress,
+          userId,
+          title,
           crashed,
           CurrentPrice,
           enginePower,
@@ -24,7 +26,7 @@ export default async function handler(
           mark,
           mileage,
           model,
-          VIN,
+          vin,
           year,
         } = req.body;
 
@@ -33,8 +35,9 @@ export default async function handler(
           folder: 'code-night-3',
         });
 
-        const auction = prisma.auction.create({
+        const auction = await prisma.auction.create({
           data: {
+            title,
             crashed,
             CurrentPrice,
             enginePower,
@@ -42,7 +45,7 @@ export default async function handler(
             mark,
             mileage,
             model,
-            VIN,
+            vin,
             year,
             user: { connect: { address: userAddress } },
             image: {
@@ -51,7 +54,7 @@ export default async function handler(
                 fileName,
                 id: uploadResponse.public_id,
                 url: uploadResponse.secure_url,
-                user: { connect: {} },
+                user: { connect: { id: userId } },
               },
             },
           },
