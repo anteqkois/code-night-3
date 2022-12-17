@@ -5,11 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function Page() {
   const { data, error } = useQuery({
-    queryKey: ['auction'],
-    queryFn: () => api('http://localhost:3000/api/auction'),
+    queryKey: ['auction', '4'],
+    queryFn: () => api('http://localhost:3000/api/auction/4'),
+    // queryFn: () => api('http://localhost:3000/api/auction'),
     suspense: true,
     // retry: false,
-    refetchInterval: 1000,
+    refetchInterval: 5000,
   });
 
   // console.log(data);
