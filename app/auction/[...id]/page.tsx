@@ -60,6 +60,12 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
     },
   });
 
+  const expireDateToFormat = data?.data.auction.expireDate;
+  const expireDate = new Date(expireDateToFormat);
+  console.log(expireDate);
+  const actualDate = new Date();
+  console.log(actualDate);
+
   const bids = data?.data.auction.bids;
   console.log(bids);
 
