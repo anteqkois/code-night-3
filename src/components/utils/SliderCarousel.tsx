@@ -16,7 +16,7 @@ export default function SimpleSlider({ cars }: { cars: Auction[] }) {
     prevArrow: <CarouselArrow />,
   };
   if (cars == undefined) return;
-  
+
   return (
     <div>
       <Slider

@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { useSession } from 'next-auth/react';
 import { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { any } from 'zod';
 
 type InitialValues = {
   title: string;
@@ -20,6 +21,7 @@ type InitialValues = {
   enginePower: string;
   terms: string;
   file: File | null;
+  expireDate: any;
 };
 
 const initialValues: InitialValues = {
@@ -35,6 +37,7 @@ const initialValues: InitialValues = {
   enginePower: '',
   terms: '',
   file: null,
+  expireDate: '',
 };
 
 const NewAuction = () => {
@@ -46,6 +49,7 @@ const NewAuction = () => {
     initialValues,
 
     onSubmit: async (values) => {
+      console.log(values);
       try {
         const reader = new FileReader();
         reader.readAsDataURL(values.file!);
@@ -82,13 +86,13 @@ const NewAuction = () => {
   };
 
   return (
-    <main className="flex justify-center w-full min-h-screen">
+    <main className="flex justify-center w-full">
       <div className="w-2/3 ">
-        <div className="mx-28 my-6">
+        <div className="mx-28 my-4">
           <h1>Stwórz Aukcję</h1>
         </div>
         <div className="h-1 w-full bg-primary-orange" />
-        <div className="mx-20 mt-8">
+        <div className="mx-20 mt-4">
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
               <label
@@ -338,7 +342,26 @@ const NewAuction = () => {
                   className="hidden"
                 />
               </div>
-              <div className="flex flex-col">
+
+              <div className="mr-3 flex gap-3">
+                <label
+                  htmlFor="title"
+                  className="block mb-2 text-md font-medium text-black w-fit"
+                >
+                  Data wygaśnięcia:
+                </label>
+                <input
+                  type="datetime-local"
+                  id="expireDate"
+                  name="expireDate"
+                  value={formik.values.expireDate}
+                  onChange={formik.handleChange}
+                  className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
+                  required
+                />
+              </div>
+
+              <div className="flex flex-col justify-center">
                 <Button
                   type="button"
                   onClick={() => inputRef.current?.click()}
@@ -382,7 +405,7 @@ const NewAuction = () => {
           </form>
         </div>
       </div>
-      <div className="w-1/3 bg-blue-500"></div>
+      <div className="w-1/3 min-h-screen bg-[url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60')] bg-cover bg-no-repeat blur-sm"></div>
     </main>
   );
 };
