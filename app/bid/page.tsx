@@ -3,7 +3,13 @@
 import { erc20ABI, useContractWrite } from 'wagmi';
 
 export default function Page() {
-  const higestBid = { amount: 34124, user: '', auction: '' };
+  // const higestBid = { amount: 34124, user: '', auction: '' };
+
+
+  // const higestBid = useCallback(() => {
+  //   return data?.data.auction.bids.sort((a, b) => b.amount - a.amount)[0];
+  // }, [data?.data.auction.bids]);
+  ;
 
   const contractWrite = useContractWrite({
     mode: 'recklesslyUnprepared',
@@ -11,8 +17,18 @@ export default function Page() {
     contractInterface: erc20ABI,
     functionName: 'transferFrom',
   });
+  
   // const data?.data.auction.CurrentPrice;
   // od kogo - do kogo - ile
+  // contractWrite.writeAsync({
+  //   recklesslySetUnpreparedArgs: [
+  //     higestBid.user.address,
+  //     data?.data.auction.user.address,
+  //     higestBid.amount,
+  //   ],
+  // });
+
+  // const handleEnd
   // contractWrite.writeAsync({
   //   recklesslySetUnpreparedArgs: [
   //     higestBid.user.address,
