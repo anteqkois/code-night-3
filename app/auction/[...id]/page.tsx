@@ -19,7 +19,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   const { data, error } = useQuery({
     queryKey: ['auction', `${params.id[0]}`],
     queryFn: () => api(`http://localhost:3000/api/auction/${params.id[0]}`),
-    refetchInterval: 100000,
+    refetchInterval: 1000,
   });
   const { signMessageAsync } = useSignMessage();
 

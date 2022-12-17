@@ -207,57 +207,6 @@ const NavBar = () => {
                   Aukcje
                 </a>
               </li>
-              {isLogged ? (
-                <>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex gap-2 p-2 hover:text-primary-orange text-white"
-                      // klasy do aktywnej strony:
-                      // textnew Date('2022-12-17T05:34')-primary-orange border-b-2 border-primary-orange
-                      aria-current="page"
-                    >
-                      <InboxIcon
-                        width={18}
-                        height={18}
-                      />
-                      Wiadomości
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex gap-2 p-2 hover:text-primary-orange text-white"
-                      // klasy do aktywnej strony:
-                      // text-primary-orange border-b-2 border-primary-orange
-                      aria-current="page"
-                    >
-                      <EyeIcon
-                        width={18}
-                        height={18}
-                      />
-                      Obserwowane
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex gap-2 p-2 hover:text-primary-orange text-white"
-                      // klasy do aktywnej strony:
-                      // text-primary-orange border-b-2 border-primary-orange
-                      aria-current="page"
-                    >
-                      <StarIcon
-                        width={18}
-                        height={18}
-                      />
-                      Moje Licytacje
-                    </a>
-                  </li>
-                </>
-              ) : (
-                ''
-              )}
             </ul>
           </div>
         </div>
