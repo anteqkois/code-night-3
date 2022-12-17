@@ -20,6 +20,7 @@ export default function Home() {
                 Odprawa celna
               </span>
             </div>
+<<<<<<< HEAD
             <button className="mt-3 flex justify-center items-center py-2.5 px-2 text-center w-full text-sm font-medium text-black bg-primary-orange rounded-lg focus:ring-4 focus:outline-none">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +42,11 @@ export default function Home() {
                 width={150}
                 alt="bid"
               />
+=======
+            <div className='m-5 h-64 mt-4 flex flex-col justify-center items-center bg-primary-orange rounded'>
+              <img src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/2018/png/iconmonstr-gavel-1.png&r=0&g=0&b=0" width={150} alt="bid" />
+              <span className='pl-1 font-medium pt-4'>Zacznij licytować już teraz</span>
+>>>>>>> e921b94e674531ac60aab09124c8946361e6ded0
             </div>
           </div>
           <form className="bg-white w-[450px] h-96 rounded shadow-2xl">

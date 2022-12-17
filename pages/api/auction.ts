@@ -72,7 +72,9 @@ export default async function handler(
 
     default:
       console.log('GETTTT');
-      const auctions = await prisma.auction.findMany();
+      const auctions = await prisma.auction.findMany({
+        include: { bids: true, image: true, user: true },
+      });
       res.status(200).json({ auctions });
       break;
   }
