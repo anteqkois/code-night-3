@@ -18,7 +18,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   const { data, error } = useQuery({
     queryKey: ['auction', `${params.id[0]}`],
     queryFn: () => api(`http://localhost:3000/api/auction/${params.id[0]}`),
-    refetchInterval: 5000,
+    refetchInterval: 1000,
   });
   const { signMessageAsync } = useSignMessage();
 
@@ -60,12 +60,6 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
     },
   });
 
-  const expireDateToFormat = data?.data.auction.expireDate;
-  const expireDate = new Date(expireDateToFormat);
-  console.log(expireDate);
-  const actualDate = new Date();
-  console.log(actualDate);
-
   const bids = data?.data.auction.bids;
   console.log(bids);
 
@@ -80,6 +74,22 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
       formik.setFieldValue('newBid', data?.data.auction.CurrentPrice);
     }
   }, [data?.data]);
+
+  const expireDateToFormat = data?.data.auction.expireDate;
+  const expireDate: any = new Date(expireDateToFormat);
+  console.log(expireDate);
+  const actualDate: any = new Date();
+  console.log(actualDate);
+  const diffTime = Math.abs(expireDate - actualDate);
+  console.log(diffTime);
+  // const diffTimeDay = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  // console.log(diffTimeDay);
+  // const diffTimeHour = Math.round(diffTime / (1000 * 60 * 60));
+  // console.log(diffTimeHour);
+  // const diffTimeMin = Math.round(diffTime / (1000 * 60));
+  // console.log(diffTimeMin);
+  const diffTimeSec = Math.floor(diffTime / 1000);
+  console.log(diffTimeSec);
 
   return data?.data ? (
     <main className="lg:mx-64 mx-32 h-full">
@@ -102,7 +112,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
           </div>
           <div className=" flex flex-col my-auto">
             <h5 className="text-center text-semibold text-black my-2">
-              Oferta wygasa za: 5:32:23
+              Oferta wygasa za: {diffTimeSec} sekund
             </h5>
             <p className="my-2 text-center text-black">Twoja oferta:</p>
 
