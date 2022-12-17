@@ -9,8 +9,10 @@ export default function Page() {
     queryFn: () => api('http://localhost:3000/api/auction'),
     suspense: true,
     retry: false,
-    refetchInterval: 2000,
+    refetchInterval: 1000,
   });
+
+  console.log(data);
 
   return <main>{JSON.stringify(data?.data)}</main>;
 }
