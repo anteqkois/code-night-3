@@ -87,7 +87,7 @@ const NewAuction = () => {
 
   return (
     <main className="flex justify-center w-full">
-      <div className="w-2/3 ">
+      <div className="w-2/3 flex flex-col">
         <div className="mx-28 my-4">
           <h1>Stwórz Aukcję</h1>
         </div>
@@ -241,6 +241,7 @@ const NewAuction = () => {
                   type="number"
                   id="CurrentPrice"
                   name="CurrentPrice"
+                  step="0.01"
                   value={formik.values.CurrentPrice}
                   onChange={formik.handleChange}
                   className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
@@ -307,7 +308,7 @@ const NewAuction = () => {
                 />
               </div>
             </div>
-            <div className="flex items-start mb-3">
+            <div className="flex flex-col items-start mb-3">
               <div className="flex items-center h-5">
                 <input
                   // id="terms"
@@ -342,7 +343,26 @@ const NewAuction = () => {
                   className="hidden"
                 />
               </div>
-
+              <div className="flex flex-col mr-3">
+                <Button
+                  type="button"
+                  onClick={() => inputRef.current?.click()}
+                  className="max-w-[121px] mb-3"
+                >
+                  Dodaj zdjęcie
+                </Button>
+                {previewImage && (
+                  <>
+                    <p className="block mb-2 text-md font-medium text-black">
+                      Wybrane zdjęcie
+                    </p>
+                    <img
+                      src={previewImage}
+                      className="my-4 max-w-4xl"
+                    />
+                  </>
+                )}
+              </div>
               <div className="mr-3 flex gap-3">
                 <label
                   htmlFor="title"
@@ -359,27 +379,6 @@ const NewAuction = () => {
                   className="bg-white border border-primary-navy text-black text-sm rounded-lg focus:ring-primary-orange focus:border-primary-orange block w-full p-2.5 "
                   required
                 />
-              </div>
-
-              <div className="flex flex-col justify-center">
-                <Button
-                  type="button"
-                  onClick={() => inputRef.current?.click()}
-                  className="max-w-[121px]"
-                >
-                  Dodaj zdjęcie
-                </Button>
-                {previewImage && (
-                  <>
-                    <p className="block mb-2 text-md font-medium text-black">
-                      Wybrane zdjęcie
-                    </p>
-                    <img
-                      src={previewImage}
-                      className="mt-4 max-w-4xl"
-                    />
-                  </>
-                )}
               </div>
             </div>
             <div className="flex items-start mb-3">

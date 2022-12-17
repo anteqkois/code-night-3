@@ -4,6 +4,7 @@ const AllBids = () => {
   return (
     <main>
       <h2>Ostatnie przebicia:</h2>
+
       <div className="flex gap-4">
         <div className="flex w-fit p-4 my-4 flex-col justify-center items-center border border-primary-orange">
           <div className="flex gap-2">
