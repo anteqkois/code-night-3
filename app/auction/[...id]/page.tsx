@@ -42,7 +42,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
 
       await contractWrite.writeAsync({
         recklesslySetUnpreparedArgs: [
-          data?.data.auction.user.address,
+        .user.address,
           values.newBid,
         ],
       });
