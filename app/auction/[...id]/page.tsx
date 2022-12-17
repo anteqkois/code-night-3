@@ -82,7 +82,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   });
 
   const bids = data?.data.auction.bids;
-  // console.log(bids);
+  console.log(bids);
 
   useEffect(() => {
     if (data?.data) {
@@ -170,7 +170,11 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
               </div>
             </form>
             <div className="my-2 flex justify-center mx-8">
-              <Button onClick={() => endAuction()}>Odbierz swoje tokeny</Button>
+              {session?.user.address === data?.data.auction.user.address && (
+                <Button onClick={() => endAuction()}>
+                  Odbierz swoje tokeny
+                </Button>
+              )}
             </div>
             <h5 className="text-center text-black">
               Aktualna liczba uczestników licytacji: 4
@@ -241,7 +245,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
       </div>
 
       {bids
-        ? bids.map((bid: any) => {
+        ? bids.map((bid: any) => (
             <div className="flex gap-4">
               <div className="flex w-fit p-4 my-4 flex-col justify-center items-center border border-primary-orange">
                 <div className="flex gap-2">
@@ -251,12 +255,10 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
                   />
                   <h4>{bid?.user.address}</h4>
                 </div>
-                <h3>
-                  {data?.data.auction.CurrentPrice}(+{formik.values.newBid})$
-                </h3>
+                <h3>{bid?.amount}$</h3>
               </div>
-            </div>;
-          })
+            </div>
+          ))
         : ''}
     </main>
   ) : (
