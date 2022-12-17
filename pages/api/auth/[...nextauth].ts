@@ -39,6 +39,7 @@ export default async function auth(req: any, res: any) {
             //TODO Get account info from PRISMA
             const user = await prisma.user.findFirst({
               where: { address: siwe.address },
+              include: { auctions: true, bids: true },
             });
             if (user) {
               // return {
@@ -49,6 +50,7 @@ export default async function auth(req: any, res: any) {
             } else {
               const user = prisma.user.create({
                 data: { address: siwe.address },
+                include: { auctions: true, bids: true },
               });
               // return {
               //   id: siwe.address,

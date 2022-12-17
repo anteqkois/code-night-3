@@ -1,17 +1,10 @@
 import { useState } from 'react';
 
-import {
-  MagnifyingGlassIcon,
-  HomeIcon,
-  UserIcon,
-  StarIcon,
-  EyeIcon,
-  InboxIcon,
-} from '@heroicons/react/24/outline';
+import { EyeIcon, HomeIcon, InboxIcon, MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 
 import { motion } from 'framer-motion';
 import { navVariants } from '../lib/motion';
-import { Button } from './utils';
+import { LoginButton } from './utils';
 
 const NavBar = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
@@ -50,46 +43,36 @@ const NavBar = () => {
           </a>
 
           <div className="flex md:order-2 gap-2">
-            {isLogged ? (
-              <>
-                <p className="self-center font-semibold text-white mx-2">
-                  Witaj adam123
-                </p>
-                <Button>Wyloguj się</Button>
-              </>
-            ) : (
-              <>
-                <Button type="button">Zaloguj się</Button>
-                <button
-                  type="button"
-                  className="text-primary-orange font-semibold bg-transparent hover:bg-secondary-orange hover:text-black border-2 border-primary-orange active:ring-2 active:outline-none active:ring-secondary-orange rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
-                >
-                  Zarejestruj się
-                </button>
-                <button
-                  data-collapse-toggle="navbar-sticky"
-                  type="button"
-                  className="inline-flex items-center p-2 text-sm text-primary-orange rounded-lg md:hidden focus:outline-none focus:border-b-4 focus:border-primary-orange"
-                  aria-controls="navbar-sticky"
-                  aria-expanded="false"
-                >
-                  <span className="sr-only">Open main menu</span>
-                  <svg
-                    className="w-6 h-6"
-                    aria-hidden="true"
-                    fill="#FCA311"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
-              </>
-            )}
+            <LoginButton />
+            {/* <Button type="button">Zaloguj się</Button> */}
+            {/* <button
+              type="button"
+              className="text-primary-orange font-semibold bg-transparent hover:bg-secondary-orange hover:text-black border-2 border-primary-orange active:ring-2 active:outline-none active:ring-secondary-orange rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
+            >
+              Zarejestruj się
+            </button> */}
+            <button
+              data-collapse-toggle="navbar-sticky"
+              type="button"
+              className="inline-flex items-center p-2 text-sm text-primary-orange rounded-lg md:hidden focus:outline-none focus:border-b-4 focus:border-primary-orange"
+              aria-controls="navbar-sticky"
+              aria-expanded="false"
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-6 h-6"
+                aria-hidden="true"
+                fill="#FCA311"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
           </div>
           <div
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
