@@ -168,7 +168,7 @@ export default function Home() {
             <div className="bg-primary-orange my-5 py-5 text-center text-3xl">
               Znajdź swój wymarzony samochód w okazyjnej cenie
             </div>
-            <div className="py-5 h-96 bg-white">
+            <div className="py-5 h-96 bg-[#ffffff80]">
               <div className="text-center py-4">
                 <span className="text-center text-3xl px-10 pb-3 font-thin border-b-2 border-black">
                   Ostatnio wyszukiwane
@@ -179,7 +179,7 @@ export default function Home() {
             <div className="bg-primary-orange my-5 py-5 text-center text-3xl">
               Nasze oferty dobrane specjalnie dla ciebie
             </div>
-            <div className="h-fit py-5 bg-white">
+            <div className="h-fit py-5 bg-[#ffffff80]">
               <div className="text-center py-4">
                 <span className="text-center text-3xl px-10 pb-3 font-thin border-b-2 border-black">
                   Wybrane dla ciebie

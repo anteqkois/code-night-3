@@ -4,8 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import Slider from 'react-slick';
 import CarouselArrow from './CarouselArrow';
+import { useRouter } from 'next/navigation';
 
 export default function SimpleSlider({ cars }: { cars: Auction[] }) {
+  const router = useRouter();
   var settings = {
     dots: true,
     infinite: true,
@@ -25,7 +27,7 @@ export default function SimpleSlider({ cars }: { cars: Auction[] }) {
       >
         {cars.map((car) => (
           <div className="my-4">
-            <div className="mx-auto w-72 h-60 text-center rounded-xl shadow-2xl">
+          <div className="mx-auto w-72 h-60 text-center rounded-xl shadow-2xl bg-white cursor-pointer"  onClick={() => router.push(`/auction/${car.id}`)}>
               <h3 className="text-sm font-medium py-3 rounded-t-xl border-b-2 border-black">
                 {car.mark} {car.model}
               </h3>
