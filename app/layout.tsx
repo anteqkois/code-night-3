@@ -1,4 +1,5 @@
 'use client';
+import Footer from '@/components/Footer';
 import NavBar from '@/components/NavBar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';

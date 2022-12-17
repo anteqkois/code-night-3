@@ -1,6 +1,12 @@
 import { useState } from 'react';
 
-import { EyeIcon, HomeIcon, InboxIcon, MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
+import {
+  EyeIcon,
+  HomeIcon,
+  InboxIcon,
+  MagnifyingGlassIcon,
+  StarIcon,
+} from '@heroicons/react/24/outline';
 
 import { motion } from 'framer-motion';
 import { navVariants } from '../lib/motion';
@@ -10,7 +16,7 @@ const NavBar = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
 
-  const isLogged = false;
+  const isLogged = true;
 
   const handleInput = (e: any) => {
     e.preventDefault();
