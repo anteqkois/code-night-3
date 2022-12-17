@@ -23,8 +23,17 @@ export default async function handler(
       where: { id: auctionId },
       data: { CurrentPrice: amount },
     });
+    // const updatedAuction = await prisma.auction.update({
+    //   where: { id: auctionId },
+    //   data: { CurrentPrice: amount },
+    // });
+    // const updatedAuction = await prisma.auction.update({
+    //   data:{CurrentPrice: amount, }
+    // });
 
-    console.log(bid);
+    // console.log(updatedAuction);
+
+    // console.log(bid);
     res.status(200).json({ bid });
   } catch (error) {
     console.error(error);

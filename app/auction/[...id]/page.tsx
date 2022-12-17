@@ -7,10 +7,11 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
-import { useFormik, validateYupSchema } from 'formik';
+import { useFormik } from 'formik';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { erc20ABI, useContractWrite, useSignMessage } from 'wagmi';
 
 const Auction = ({ params }: { params: { id: string[] } }) => {
@@ -22,11 +23,31 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   });
   const { signMessageAsync } = useSignMessage();
 
+  const higestBid = data?.data.auction.bids.sort(
+    (a: any, b: any) => b.amount - a.amount
+  )[0];
+  // console.log(higestBid);
+
   const contractWrite = useContractWrite({
     mode: 'recklesslyUnprepared',
     addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
     contractInterface: erc20ABI,
     functionName: 'approve',
+  });
+
+  const contractWriteTransfer = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
+    contractInterface: erc20ABI,
+    functionName: 'transferFrom',
+  });
+
+  const contractWriteAllowance = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
+    contractInterface: erc20ABI,
+    functionName: 'allowance',
+    args: []
   });
 
   const formik = useFormik({
@@ -46,6 +67,12 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
           values.newBid,
         ],
       });
+      console.log({
+        signature,
+        userAddress: session?.user.address,
+        amount: values.newBid,
+        auctionId: data?.data.auction.id,
+      });
 
       const res = await api('/bid', {
         method: 'post',
@@ -61,13 +88,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   });
 
   const bids = data?.data.auction.bids;
-  console.log(bids);
-
-  bids
-    ? bids.map((bid: any) => {
-        console.log(bid?.user.address);
-      })
-    : '';
+  // console.log(bids);
 
   useEffect(() => {
     if (data?.data) {
@@ -77,11 +98,11 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
 
   const expireDateToFormat = data?.data.auction.expireDate;
   const expireDate: any = new Date(expireDateToFormat);
-  console.log(expireDate);
+  // console.log(expireDate);
   const actualDate: any = new Date();
-  console.log(actualDate);
+  // console.log(actualDate);
   const diffTime = Math.abs(expireDate - actualDate);
-  console.log(diffTime);
+  // console.log(diffTime);
   // const diffTimeDay = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   // console.log(diffTimeDay);
   // const diffTimeHour = Math.round(diffTime / (1000 * 60 * 60));
@@ -89,7 +110,25 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
   // const diffTimeMin = Math.round(diffTime / (1000 * 60));
   // console.log(diffTimeMin);
   const diffTimeSec = Math.floor(diffTime / 1000);
-  console.log(diffTimeSec);
+  // console.log(diffTimeSec);
+
+  const endAuction = async () => {
+    await contractWriteTransfer.writeAsync({
+      recklesslySetUnpreparedArgs: [
+        higestBid.user.address,
+        data?.data.auction.user.address,
+        higestBid.amount,
+      ],
+    });
+    toast.success(
+      `Uźytkownik o adresie ${higestBid.user.address} wygrał licytację, zakupuł auto za ${higestBid.amount} $CN (Code Night Coin).`
+    );
+  };
+  if (diffTimeSec <= 0) {
+    (async () => {
+      await endAuction();
+    })();
+  }
 
   let carData = data?.data.auction;
 
@@ -138,6 +177,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
                 </Button>
               </div>
             </form>
+            <Button onClick={() => endAuction()}>End</Button>
             <h5 className="text-center text-black">
               Aktualna liczba uczestników licytacji: 4
             </h5>
