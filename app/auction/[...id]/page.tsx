@@ -12,14 +12,19 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { erc20ABI, useContractWrite, useSignMessage } from 'wagmi';
+import {
+  erc20ABI,
+  useContractRead,
+  useContractWrite,
+  useSignMessage,
+} from 'wagmi';
 
 const Auction = ({ params }: { params: { id: string[] } }) => {
   const { data: session } = useSession();
   const { data, error } = useQuery({
     queryKey: ['auction', `${params.id[0]}`],
     queryFn: () => api(`http://localhost:3000/api/auction/${params.id[0]}`),
-    refetchInterval: 1000,
+    refetchInterval: 100000,
   });
   const { signMessageAsync } = useSignMessage();
 
@@ -42,13 +47,16 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
     functionName: 'transferFrom',
   });
 
-  const contractWriteAllowance = useContractWrite({
-    mode: 'recklesslyUnprepared',
+  const contractReadAllowance = useContractRead({
+    // mode: 'recklesslyUnprepared',
     addressOrName: '0xb1567FD318D3FC9662edE4D9D1FF74319B259609',
     contractInterface: erc20ABI,
     functionName: 'allowance',
-    args: []
+    args: [session?.user.address, data?.data.auction.user.address],
   });
+  useEffect(() => {
+    console.log(contractReadAllowance);
+  }, [contractReadAllowance]);
 
   const formik = useFormik({
     initialValues: {
@@ -197,35 +205,51 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
       <h3 className="text-white bg-black p-2 rounded-t-xl">Dane samochodu:</h3>
       <div className="grid grid-cols-4 grid-rows-2">
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Marka</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Marka
+          </span>
           <div className="text-center p-1">{carData.mark}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Model</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Model
+          </span>
           <div className="text-center p-1">{carData.model}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Rok Produkcji</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Rok Produkcji
+          </span>
           <div className="text-center p-1">{carData.year}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Przebieg</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Przebieg
+          </span>
           <div className="text-center p-1">{carData.mileage}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Uszkodzony</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Uszkodzony
+          </span>
           <div className="text-center p-1">{carData.mark ? 'nie' : 'tak'}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Numer VIN</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Numer VIN
+          </span>
           <div className="text-center p-1">{carData.vin}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Rodzaj paliwa</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Rodzaj paliwa
+          </span>
           <div className="text-center p-1">{carData.fuelType}</div>
         </div>
         <div className="bg-primary-orange text-center p-1">
-          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">Konie mechaniczne</span>
+          <span className="mx-auto block w-32 bg-blue-100 text-blue-800 text-xs font-semibold py-2 rounded dark:bg-black dark:text-white">
+            Konie mechaniczne
+          </span>
           <div className="text-center p-1">{carData.enginePower}</div>
         </div>
       </div>
