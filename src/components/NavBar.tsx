@@ -7,6 +7,7 @@ import {
   InboxIcon,
   MagnifyingGlassIcon,
   StarIcon,
+  PlusSmallIcon
 } from '@heroicons/react/24/outline';
 
 import { motion } from 'framer-motion';
@@ -105,8 +106,8 @@ const NavBar = () => {
             <ul className="flex flex-col p-4 mt-4 border rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 bg-black">
               <li>
                 <a
-                  href="#"
-                  className="flex gap-2 p-2 hover:text-primary-orange text-primary-orange border-b-2 border-primary-orange"
+                  onClick={() => router.push('/')}
+                  className="flex gap-2 p-2 hover:text-primary-orange text-primary-orange border-b-2 border-primary-orange hover:cursor-pointer"
                   // klasy do aktywnej strony:
                   // text-primary-orange border-b-2 border-primary-orange
                   aria-current="page"
@@ -116,6 +117,22 @@ const NavBar = () => {
                     height={18}
                   />
                   Strona główna
+                </a>
+              </li>
+              <li>
+                <a
+                  className={`flex gap-2 text-white p-2 hover:text-primary-orange hover:cursor-pointer ${
+                    activeSearch
+                      ? 'text-primary-orange border-b-2 border-primary-orange'
+                      : ''
+                  }`}
+                  onClick={() => router.push('/newAuction')}
+                >
+                  <PlusSmallIcon
+                    width={18}
+                    height={18}
+                  />
+                  Dodaj oferte
                 </a>
               </li>
               <li>
