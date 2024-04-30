@@ -140,7 +140,7 @@ const Auction = ({ params }: { params: { id: string[] } }) => {
         <div className="w-2/5 my-8 mx-3 border border-primary-orange h-fit pb-4">
           <div className="bg-primary-orange p-2">
             <h3 className="text-center text-black text-bold">
-              Aktualna oferta: {data?.data.auction.CurrentPrice}$
+              Aktualna oferta: {data?.data.auction.CurrentPrice} $CN
             </h3>
           </div>
           <div className=" flex flex-col my-auto">
